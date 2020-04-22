@@ -77,7 +77,7 @@ You will first provision a CentOS VM to use as a client for your Files export.
    - **vCPU(s)** - 2
    - **Number of Cores per vCPU「vCPUあたりのコア数」** - 1
    - **Memory「メモリ」** - 2 GiB
-   - **Add New Disk「新しいディスクを追加　** を選択します
+   - **Add New Disk「新しいディスクを追加** を選択します
       - **Operation「操作」** - Clone from Image Service「イメージサービスからのクローン」
       - **Image「画像」** - CentOS
       - **Add「追加」**　を選択
