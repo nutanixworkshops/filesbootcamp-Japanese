@@ -1,64 +1,66 @@
 .. _files_expand_cluster:
 
-------------------------
-Files: Expand Cluster
-------------------------
+-----------------------
+ファイル：EXPAND CLUSTER
+-----------------------
 
-Overview
-++++++++
+概要
+++++
 
-Files offers the ability to scale up and scale out a deployment. Scaling up the CPU and memory of Files VMs allows an environment to support higher storage throughput and number of concurrent sessions. Currently, Files VMs can be scaled up to a maximum of 12 vCPU and 96GB of RAM each.
+ファイルは、デプロイメントをスケールアップおよびスケールアウトする機能を提供します。 Files VMのCPUとメモリをスケールアップすると、環境でより高いストレージスループットと同時セッション数をサポートできます。現在、
+Files VMは最大で12個のvCPUとそれぞれ96GBのRAMにスケールアップできます
 
-The true power of Files scalability is the ability to simply add more Files VMs, scaling out much like the underlying Nutanix distributed storage fabric. An individual Files cluster can scale out up to the number of physical nodes in the Nutanix cluster, ensuring that no more than 1 Files VM runs on a single node during normal operation.
+Filesのスケーラビリティの真の力は、単純にファイルVMを追加する機能であり、基盤となるNutanix分散ストレージファブリックのようにスケールアウトします。個々のFilesクラスターは、Nutanixクラスター内の物理ノードの数までスケールアウトできるため、
+通常の操作中に単一のノードで実行されるファイルVMは1つだけです
 
-Expanding a Files Cluster
-++++++++++++++++++++++++++++++++++++
+Filesクラスターの拡張
++++++++++++++++++++
 
-#. Return to **Prism > File Server** and select **BootcampFS**.
+#. **Prism** で　> **File Server 「ファイルサーバー」** に戻り、**BootcampFS** を選択します
 
-#. Click **Update > Number of File Server VMs**.
+#. Click **Update 「更新」> Number of File Server VMs「ファイルサーバーVMの数」**　をクリックします
 
    .. figure:: images/25.png
 
-#. Increment the number of Files VMs from 3 to 4 and click **Next**.
+#. Files VMの数を3から4に増やし、[次へ]をクリックします
 
    .. figure:: images/26.png
 
-   Note that an additional IP will be consumed for both the client and storage networks to support the added Files VM.
+   追加されたFiles VMをサポートするために、クライアントとストレージネットワークの両方で追加のIPが消費されることに注意してください
 
-#. Click **Next > Save**.
+#. **Next「次へ」> Save「保存」**　をクリックします
+　　
+   これでクラスターに対して4番目のFiles VMがデプロイされ、電源がオンになります。ステータスは、**Prism> Tasks** で監視できます
 
-   The cluster will now deploy and power on a 4th Files VM. Status can be monitored in **Prism > Tasks**.
+   .. 注意::
 
-   .. note::
+     Filesクラスターの拡張が完了するまでに約10分かかります
 
-     Files cluster expansion should take approximately 10 minutes to complete.
+   拡張に続いて、クライアント接続が新しいVMに負荷分散できることを確認します
 
-   Following the expansion, verify client connections can now be load balanced to the new VM.
+#. RDPまたはコンソールを介して *Initials*\ **-ToolsVM** に接続します
 
-#. Connect to your *Initials*\ **-ToolsVM** via RDP or console.
+#. **Control Panel「コントロールパネル」 > Administrative Tools 「管理ツール」> DNS** を開きます。
 
-#. Open **Control Panel > Administrative Tools > DNS**.
+#. 以下のフィールドに入力して、**OK** をクリックします:
 
-#. Fill out the following fields and click **OK**:
-
-   - Select **The following computer**
-   - Specify **dc.ntnxlab.local**
-   - Select **Connect to the specified computer now**
+   - **次のコンピュータ** を選択します
+   - **dc.ntnxlab.local** を指定します
+   - **指定したコンピューターに今すぐ接続を選択します**
 
    .. figure:: images/28.png
 
-#. Open **DC.ntnxlab.local > Forward Lookup Zones > ntnxlab.local** and verify there are now four entries for **BootcampFS**. Files leverages round robin DNS to load balance connections across Files VMs.
+#. **DC.ntnxlab.local > Forward Lookup Zones「前方参照ゾーン」> ntnxlab.local** を開き、**BootcampFS**　の4つのエントリがあることを確認します. FilesはラウンドロビンDNSを利用して、FilesVM間で接続の負荷を分散します
 
    .. figure:: images/29.png
 
-   .. note::
+   .. 注意::
 
-     If only three entries are present, you can automatically update DNS entries from **Prism > File Server** by selecting your Files cluster and clicking **DNS**.
+     エントリが3つしかない場合は、Filesクラスターを選択して[DNS]をクリックすることにより、**Prism** > ファイルサーバーから　**DNS** エントリを自動的に更新できます
 
-Takeaways
-+++++++++
+持ち帰り
++++++++
 
-What are the key things you should know about **Nutanix Files**?
+**Nutanix Files** について知っておくべき重要なことは何ですか？
 
-- Files can scale up and scale out with One Click performance optimization.
+- ワンクリックのパフォーマンス最適化により、Filesをスケールアップおよびスケールアウトできます

@@ -1,127 +1,118 @@
 .. _files_deploy:
 
 -------------
-Files: Deploy
+Files：デプロイ
 -------------
 
 .. _deploying_files:
 
-Deploy Files
-++++++++++++
+Filesをデプロイする
++++++++++++++++++
 
-#. In **Prism > File Server**, click **+ File Server** to open the **New File Server Pre-Check** dialogue.
+#. **Prism> ファイルサーバー** で、**+ File Server 「ファイルサーバー」をクリックして、**New File Server Pre-Check** ダイアログを開きます
 
    .. figure:: images/1.png
 
-   For the purpose of saving time, the Files has already been uploaded to your cluster. Files binaries can be downloaded directly through Prism or uploaded manually.
+  時間を節約するために、ファイルはすでにクラスターにアップロードされています。ファイルのバイナリは
+  Prismから直接ダウンロードするか、手動でアップロードできます
 
    .. figure:: images/2.png
 
-   Additionally, the cluster's **Data Services** IP Address has already been configured (*10.XX.YY.38*). In a Files cluster, storage is presented to the Files VMs as a Volume Group via iSCSI, hence the dependency on the Data Services IP.
+   さらに、クラスタの **Data Servicesデータサービス** IPアドレスはすでに構成されています（*10.XX.YY.38*). Filesクラスターでは、ストレージはiSCSI経由でボリュームグループとしてFiles VMに提供されるため、Data Services IPに依存します
 
-   .. note::
+   .. 注意::
 
-     If staging your own environment, the Data Services IP can be easily configured by selecting :fa:`gear` **> Cluster Details**, specifying the **iSCSI Data Services IP**, and clicking **Save**. Currently, the Data Services IP must be in the same subnet as your CVMs.
+     独自の環境をステージングする場合は、>**Cluster Details 「クラスタの詳細」** を選択し、**iSCSI Data Services IP 「iSCSIデータサービスIP」** を指定して[保存]をクリックすることで、データサービスIPを簡単に構成できます。現在、Data Services IPはCVMと同じサブネットにある必要があります。
 
-   Lastly Files will ensure that at least 1 network has been configured on the cluster. A minimum of 2 networks are recommended to have segmentation between the client side and storage side networks.
+   最後に、Filesは、少なくとも1つのネットワークがクラスター上で構成されていることを確認します。クライアント側のネットワークとストレージ側のネットワークをセグメント化するには、最低2つのネットワークが推奨されます
 
-#. Click **Continue**.
+#. **Continue「続行」** をクリックします
 
    .. figure:: images/3.png
 
-#. Fill out the following fields:
+#. 次のフィールドに入力します:
 
-   - **Name** - *Intials*-Files (e.g. XYZ-Files)
-   - **Domain** - ntnxlab.local
-   - **File Server Size** - 1 TiB
+   - **Name「名前」** - *Intials*-Files（例：XYZ-Files）
+   - **Domain「ドメイン」** - ntnxlab.local
+   - **File Server Size「 ファイルサーバーサイズ」** - 1 TiB
 
    .. figure:: images/4.png
 
-   .. note::
+   .. 注意::
 
-     Clicking **Custom Configuration** will allow you to alter the scale up and scale out sizing of the Files VMs based on User and Throughput targets. It also allows for manual sizing of the Files cluster.
-
+　　　**Custom Configuration「カスタム構成」**　をクリックすると、ユーザーとスループットのターゲットに基づいて、Files VMのサイズの変更とサイズ変更を変更できます。また、Filesクラスターのサイズを手動で設定することもできます
      .. figure:: images/5.png
 
-#. Click **Next**.
+#. **Next「次へ」**　をクリックします
 
-#. Select the **Secondary - Managed** VLAN for the **Client Network**.
+#. **Client Network　「クライアントネットワーク」** の **Secondary - Managed「セカンダリ-管理対象」** VLANを選択します
 
-   Each Files VM will consume a single IP on the client network.
+   各Files VMは、クライアントネットワークで単一のIPを消費します
 
-   .. note::
+   .. 注意::
 
-     In the HPOC environment it is critical to use the secondary VLAN for the client network if using separate client and storage networks.
+     HPOC環境では、クライアントネットワークとストレージネットワークを別々に使用する場合は、クライアントネットワークにセカンダリVLANを使用することが重要です
+     通常、本番環境では、クライアントとストレージのトラフィック用に専用の仮想ネットワークを使用してファイルをデプロイすることが望ましいです。 2つのネットワークを使用する場合、Filesは設計上、
+     クライアントによるストレージネットワークへのトラフィックを許可しません。つまり、プライマリネットワークに割り当てられたVMは共有にアクセスできません
 
-     It is typically desirable in production environments to deploy Files with dedicated virtual networks for client and storage traffic. When using two networks, Files will, by design, disallow client traffic the storage network, meaning VMs assigned to the primary network will be unable to access shares.
-
-   .. note::
-
-     As this is an AHV managed network, configuration of individual IPs is not necessary. In an ESXi environment, or using an unmanaged AHV network, you would specify the network details and available IPs as shown below.
-
-     .. figure:: images/6.png
-
-#. Specify your cluster's **Domain Controller** VM IP (found in :ref:`stagingdetails`) as the **DNS Resolver IP** (e.g. 10.XX.YY.40). Leave the default (cluster) NTP Server.
+#. クラスターの **Domain Controller 「ドメインコントローラー」VM IP** を **DNS Resolver IP 「DNSリゾルバIP」**（10.XX.YY.40など）として指定します。デフォルト（クラスター）NTPサーバーのままにします
 
    .. raw:: html
 
-     <strong><font color="red">In order for the Files cluster to successfully find and join the NTNXLAB.local domain it is critical that the DNS Resolver IP is set to the Domain Controller VM IP FOR YOUR CLUSTER. By default, this field is set to the primary Name Server IP configured for the Nutanix cluster, this value is incorrect and will not work.</font></strong>
+     <strong><font color="red">Filesクラスターが正常にNTNXLAB.localドメインを見つけて参加するには、DNSリゾルバーIPがクラスターのドメインコントローラーVM IPに設定されていることが重要です。デフォルトでは、このフィールドはNutanixクラスタ用に構成されたプライマリネームサーバーIPに設定されています。この値は正しくないため、機能しません</font></strong>
 
    .. figure:: images/7.png
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-#. Select the **Primary - Managed** VLAN for the Storage Network.
+#. Select the **Primary - Managed** VLAN for the Storage Network. ストレージネットワークの **Primary - Managed「プライマリ-管理対象」** VLANを選択します
 
-   Each Files VM will consume a single IP on the storage network, plus 1 additional IP for the cluster.
+   各ファイルVMは、ストレージネットワーク上の単一のIPに加えて、クラスター用に1つの追加IPを消費します.
 
    .. figure:: images/8.png
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-#. Fill out the following fields:
+#. 次のフィールドに入力します:
 
-   - Select **Use SMB Protocol**
-   - **Username** - Administrator@ntnxlab.local
-   - **Password** - nutanix/4u
-   - Select **Make this user a File Server admin**
-   - Select **Use NFS Protocol**
-   - **User Management and Authentication** - Unmanaged
+   - **Use SMB ProtocolSMB「プロトコルを使用」** を選択します
+   - **Username「ユーザー名」** - Administrator@ntnxlab.local
+   - **Password「パスワード」** - nutanix/4u
+   - **Make this user a File Server admin「このユーザーをファイルサーバー管理者にする」** を選択します。
+   - **Use NFS Protocol　「NFSプロトコルを使用」**　を選択します
+   - **User Management and Authentication「ユーザー管理と認証」** - Unmanaged「非管理」
 
    .. figure:: images/9.png
 
-   .. note:: In unmanaged mode, users are only identified by UID/GID. In Files 3.5, Files supports both NFSv3 and NFSv4
+   .. 注意:: 非管理モードでは、ユーザーはUID / GIDによってのみ識別されます。ファイル3.5では、ファイルはNFSv3とNFSv4の両方をサポートします
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-   By default, Files will automatically create a Protection Domain to take daily snapshots of the Files cluster and retain the previous 2 snapshots. After deployment, the snapshot schedule can be modified and remote replication sites can be defined.
+   デフォルトでは、Filesは自動的に保護ドメインを作成して、Filesクラスターのスナップショットを毎日作成し、以前の2つのスナップショットを保持します。展開後、スナップショットスケジュールを変更したり、リモートレプリケーションサイトを定義したりできます
 
    .. figure:: images/10.png
 
-#. Click **Create** to begin the Files deployment.
+#. **Create「作成」** をクリックして、Filesの展開を開始します
 
-#. Monitor deployment progress in **Prism > Tasks**.
-
-   Deployment should take approximately 10 minutes.
+#. **Prism > Tasks** で展開の進捗状況を監視します
 
    .. figure:: images/11.png
 
-   .. note::
+   .. 注意:: DNSレコード検証の失敗に関する警告を受け取った場合、これは無視しても問題ありません。共有クラスターはFilesクラスターと同じDNSサーバーを使用しないため、ファイルのデプロイ時に作成されたDNSエントリを解決できません
 
-     If you receive a warning regarding DNS record validation failure, this can be safely ignored. The shared cluster does not use the same DNS servers as your Files cluster, and as a result is unable to resolve the DNS entries created when deploying Files.
-
-#. Go to **Prism > File Server** and select the *Initials*\ **-Files** server and click **Protect**.
+#. **Prism** > File Server「ファイルサーバー」に移動し、*Initials*\ **-Filesサーバー**　を選択して、**Protect**　をクリックします
 
    .. figure:: images/12.png
 
-#. Observe the default Self Service Restore schedules, this feature controls the snapshot schedule for Windows' Previous Versions functionality. Supporting Previous Versions allows end users to roll back changes to files without engaging storage or backup administrators. Note these local snapshots do not protect the file server cluster from local failures and that replication of the entire file server cluster can be performed to remote Nutanix clusters. Click **Close**.
+#. デフォルトのセルフサービスリストアスケジュールを確認します。この機能は、Windowsの以前のバージョンの機能のスナップショットスケジュールを制御します。以前のバージョンをサポートすることで、エンドユーザーはストレージやバックアップの管理者に依頼することなく、
+   ファイルへの変更をロールバックできます。これらのローカルスナップショットはファイルサーバークラスターをローカルの障害から保護せず、ファイルサーバークラスター全体のレプリケーションをリモートNutanixクラスターに実行できることに注意してください。閉じるをクリックします
 
    .. figure:: images/13.png
 
-Takeaways
-+++++++++
+持ち帰り
++++++++
 
-What are the key things you should know about **Nutanix Files**?
+**Nutanix Files** について知っておくべき重要なことは何ですか?
 
-- Files can be rapidly deployed on top of existing Nutanix clusters, providing SMB and NFS storage for user shares, home directories, departmental shares, applications, and any other general purpose file storage needs.
-- Files is not a point solution. VM, File, Block, and Object storage can all be delivered by the same platform using the same management tools, reducing complexity and management silos.
+- ファイルは既存のNutanixクラスターの上に迅速に展開でき、ユーザー共有、ホームディレクトリ、部門共有、アプリケーション、およびその他の汎用ファイルストレージのニーズにSMBおよびNFSストレージを提供します
+- Filesはポイントソリューションではありません。 VM、ファイル、ブロック、およびオブジェクトのストレージはすべて、同じ管理ツールを使用して同じプラットフォームで配信できるため、複雑さと管理のサイロが軽減されます

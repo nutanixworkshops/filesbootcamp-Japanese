@@ -1,42 +1,42 @@
 .. _files_file_blocking:
 
 ------------------------
-Files: File Blocking
+Files：ファイルブロッキング
 ------------------------
 
-Selective File Blocking
+選択なファイルブロッキング
 +++++++++++++++++++++++
 
-In this exercise you will configure Files to block specific file extensions for the file server and the Marketing share.
+この演習では、ファイルサーバーとマーケティング共有の特定のファイル拡張子をブロックするようにファイルを構成します
 
-#. In **Prism** > **File Server** > Select your file server and click **Update** > then click **Blocked File Types**
+#. **Prism** で、**File Server ファイルサーバ** を選択し、[更新]をクリックして、[Blocked File Types]をクリックします。
 
    .. figure:: images/47.png
 
-#. Under **Blocked File Types** enter a comma separated list of extensions like .flv,.mov and click **Save**
+#. **Blocked File Types** の下に、.flv、.mov のような拡張子のコンマ区切りリストを入力し、**Save** をクリックします。
 
    .. figure:: images/48.png
 
-#. Open a PowerShell window by clicking on the **PowerShell icon** on the taskbar. Enter the following command where you will see an access denied error message:
+#. タスクバーのPowerShellアイコンをクリックしてPowerShellウィンドウを開きます。 次のコマンドを入力すると、アクセス拒否のエラーメッセージが表示されます
 
    .. code-block:: bash
 
-	 new-item \\xyz-files.ntnxlab.local\marketing\MyMovie.flv
+	    new-item \\xyz-files.ntnxlab.local\marketing\MyMovie.flv
 
    .. figure:: images/49.png
 
-#. In **Prism** > **File Server** > **Share/Export** > click on the Marketing share and select **Update**
+#. **Prism** で　**File Server「ファイルサーバ」** > **Share/Export「共有/エクスポート」** > Marketing share「マーケティング共有」 をクリックし、update「更新」を選択します
 
    .. figure:: images/50.png
 
-#. Select **Next** to get to the **Settings** page.
+#.  **Next「次へ」** を選択して **Settings「設定」** ページに移動します。
 
-#. Check **Blocked File Types** and enter .none as a file extension.
+#. **Blocked File Types** をチェックし、ファイル拡張子として .none を入力します。
 
    .. figure:: images/51.png
 
-#. Select **Next** then **Save** on the **Summary** page to complete the update.
+#. **Next「次へ」**  ページで「次へ」 **Summary「保存」** の順に選択して、更新を完了します。
 
-#. Blocked file type settings at the share level override the server level setting.  Using PowerShell issue the same command as the previous step.  The command will now complete successfully.
+#. 共有レベルでブロックされたファイルタイプの設定は、サーバーレベルの設定を上書きします。 PowerShellを使用して、前のステップと同じコマンドを発行します。 これでコマンドは正常に完了します
 
    .. figure:: images/52.png
