@@ -1,31 +1,31 @@
 .. _file_analytics_anomaly:
 
---------------------------------
-File Analytics: Anomaly Rules
---------------------------------
+-----------------------------------------------------
+File Analytics: Anomaly Rules 「ファイル分析：異常ルール」
+-----------------------------------------------------
 
-Overview
+概要
 ++++++++
 
 
 
-Define Anomaly Rules
-+++++++++++++++++++++
+Define Anomaly Rules「異常ルールを定義する」
+++++++++++++++++++++++++++++++++++++++++
 
-#. Create two anomaly rules by going to **Define Anomaly Rules** from under the gear icon
+#. 歯車アイコンの下から　**Define Anomaly Rules「異常ルールの定義」**　に移動して、2つの異常ルールを作成します
 
    .. figure:: images/39.png
 
-#. Choose **Define Anomaly Rules** and create a rule with the following settings
+#. **Define Anomaly Rules** を選択し、次の設定でルールを作成します
 
-   - **Events:** Delete
-   - **Minimum Operation %:** 1
-   - **Minimum Operation Count:** 10
-   - **User:** All Users
-   - **Type:** Hourly
-   - **Interval:** 1
+   - **Events「イベント:」** Delete　削除
+   - **Minimum Operation %　「最小操作％」:** 1
+   - **Minimum Operation Count　「最小操作数」:** 10
+   - **User「ユーザー」:** All Users 「すべてのユーザー」
+   - **Type「タイプ」:** Hourly 「毎時」
+   - **Interval「間隔」:** 1
 
-#. Choose **Save** for that anomaly table entry
+#. その異常テーブルエントリの「保存」を**Save「選択」**します。
 
 #. Choose **+ Configure new anomaly** and create a second rule with the following settings
 

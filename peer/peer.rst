@@ -7,65 +7,64 @@
 Peer Global File Service
 ------------------------
 
-*The estimated time to complete this lab is 60 minutes.*
+*この実習ラボの推定所要時間は60分です*
 
-**Google Chrome, Apple Safari, or Microsoft Edge is recommended for this lab.**
+**このラボでは、Google Chrome、Apple Safari、またはMicrosoft Edgeをお勧めします**
 
-Overview
-++++++++
+概要
+++++
 
-The explosive growth of unstructured data has driven organizations to seek solutions to efficiently store, share, manage, and protect an ever-growing universe of data while deriving new value and intelligence. Since 1993, Peer Software has focused on these requirements and more by building best-of-breed data management and real-time replication solutions for distributed on-premises and cloud storage environments.
+非構造化データの爆発的な成長により、組織は新しい価値とインテリジェンスを引き出しながら、増え続けるデータのユニバースを効率的に保存、共有、管理、保護するソリューションを模索しています。 1993年以来、Peerソフトウェアは、オンプレミスおよびクラウドストレージの分散環境向けに最高のデータ管理とリアルタイムレプリケーションソリューションを構築することにより、これらの要件に注力してきました。
 
-Peer’s flagship offering, Peer Global File Service (PeerGFS), features enterprise-class replication technology with integrated file locking and a globally accessible namespace that powers multi-site, multi-vendor, and multi-cloud deployment.
+Peerの主力製品であるPeerグローバルファイルサービス（PeerGFS）は、統合されたファイルロックとグローバルにアクセス可能な名前空間を備えたエンタープライズクラスのレプリケーションテクノロジーを特徴としており、マルチサイト、マルチベンダー、マルチクラウドの導入を促進します。
 
-PeerGFS enables fast local data access for users and applications at different locations, protects against version conflicts, makes data highly available, and allows Nutanix Files to co-exist with legacy NAS platforms to ease adoption of Files into existing environments.
+PeerGFSは、さまざまな場所にいるユーザーとアプリケーションの高速ローカルデータアクセスを可能にし、バージョンの競合から保護し、データの可用性を高め、Nutanix FilesをレガシーNASプラットフォームと共存させて、既存の環境へのファイルの導入を容易にします
 
-Key use cases for combining Peer Software with Nutanix include:
+PeerソフトウェアとNutanixを組み合わせる主な使用例は次のとおりです:
 
-- **Global File Sharing and Collaboration** - Deliver fast local access to shared project files for distributed teams while ensuring version integrity and high availability.
-- **HA and Load Balancing for User and Application Data** - Enable high availability and load balancing of end user data as well as application data.
-- **Storage Interoperability** - Cross-platform support powers coexistence of Nutanix Files with existing NAS and hybrid cloud storage systems, as well as between file and object formats.
-- **Analysis and Migration** - Analyze existing storage for resource planning, optimization, and migrations. Analysis combined with real-time replication powers minimally disruptive data migrations.
+- **Global File Sharing and Collaboration** - バージョンの整合性と高可用性を確保しながら、分散したチームに共有プロジェクトファイルへの高速ローカルアクセスを提供します
+- **HA and Load Balancing for User and Application Data** - エンドユーザーデータとアプリケーションデータの高可用性と負荷分散を可能にします
+- **Storage Interoperability** - クロスプラットフォームのサポートにより、Nutanix Filesと既存のNASおよびハイブリッドクラウドストレージシステムとの共存が可能になり、ファイルとオブジェクトのフォーマット間の共存も可能になります
+- **Analysis and Migration** - リソースの計画、最適化、移行のために既存のストレージを分析します。 分析とリアルタイムのレプリケーションを組み合わせることで、中断の少ないデータ移行が可能になります
 
-*How does it work?*
+*それはどのように機能しますか？*
 
 .. figure:: images/integration.png
 
-Working from left to right, users interact with the SMB shares on the Nutanix Files cluster via a public LAN. When SMB activity occurs on the Files cluster through these shares, the Peer Partner Server (referred to as a Peer Agent) is notified via the File Activity Monitoring API from Files. The Peer Agent accesses the updated content via SMB, and then facilitates the flow of data to one or many remote and/or local file servers.
+ユーザーは左から右に向かって、パブリックLAN経由でNutanix Filesクラスター上のSMB共有とやり取りします。 これらの共有を介してFilesクラスターでSMBアクティビティが発生すると、Peerパートナーサーバー（Peerエージェントと呼ばれる）は、ファイルからファイルアクティビティモニタリングAPIを介して通知を受けます。 Peerエージェントは、SMB経由で更新されたコンテンツにアクセスし、1つまたは複数のリモートファイルサーバーまたはローカルファイルサーバー、あるいはその両方へのデータフローを容易にします
 
-**In this lab you will configure Peer Global File Service to create an Active-Active file services solution with Nutanix Files, replicate content from Nutanix Files to Nutanix Objects, and use our File System Analyzer tool to analyze some sample data.**
+**このラボでは、Peer Global File Serviceを構成して、Nutanix Filesでアクティブ-アクティブファイルサービスソリューションを作成し、Nutanix FilesからNutanix Objectsにコンテンツを複製し、ファイルシステムアナライザーツールを使用していくつかのサンプルデータを分析します**
 
 Lab Setup
 +++++++++
 
    .. note::
 
-    This lab requires the :ref:`windows_tools_vm`.
+    注意: このラボには :ref:`windows_tools_vm` が必要です
 
 
 Files
 .....
 
-This lab requires an existing Nutanix Files deployment on your assigned cluster. Details on how to configure Nutanix Files for use with Peer Global File Service can be found in the `Configuring Nutanix Files`_ section below.
-
+このラボでは、割り当てられたクラスターに既存のNutanix Filesをデプロイする必要があります。Peerグローバルファイルサービスで使用するNutanix Filesを構成する方法の詳細については、以下のNutanix Filesの構成のセクションを参照してください
 
 Peer VMs
 ........
 
-In this exercise, you will be using three shared VMs, all of which should already be available on your assigned cluster.
+この演習では、3つの共有VMを使用します。これらのVMはすべて、割り当てられたクラスターですでに使用可能になっています
 
 .. list-table::
    :widths: 20 40
    :header-rows: 1
 
-   * - **VM Name**
-     - **Description**
+   * - **VM Name「名」**
+     - **Description「説明」**
    * - **PeerMgmt**
-     - This server is running the Peer Management Center.
+     - このサーバーはPeer管理センターを実行しています
    * - **PeerAgent-Files**
-     - This server will manage the Nutanix Files cluster.
+     - このサーバーはNutanix Filesクラスターを管理します
    * - **PeerAgent-Win**
-     - This Windows File Server will be used as a target for replication.
+     - このWindowsファイルサーバーはレプリケーションのターゲットとして使用されます
 
 Configuring Nutanix Files
 ............
