@@ -600,198 +600,205 @@ Nutanix ObjectsのクライアントIPと認証情報を取得する
 
 #. 前に作成したユーザーの次のフィールドに入力し、**Connect「接続」** をクリックします
 
-   - **Server**  - *Objects Client Used IP*
-   - **Port**  - 443
-   - **Access Key ID**  - *Generated When User Created*
-   - **Password (Secret Key)** - *Generated When User Created*
+   - **Server 「サーバー」**  - *Objects Client Used IP*
+   - **Port 「ポートー」**  - 443
+   - **Access Key ID「アクセスキーID」**  - *Generated When User Created「作成時に生成」*
+   - **Password (Secret Key)「 パスワード（秘密鍵）」** - *Generated When User Created「ユーザー作成時に生成」*
 
       .. note::
 
-     See the `Getting Client IP and Credentials for Nutanix Objects`_ section above for the appropriate access and secret keys, as well as the Client IP of the object store.
+       適切なアクセスキーと秘密キー、およびオブジェクトストアのクライアントIPについては、上記の　`Getting Client IP and Credentials for Nutanix Objects`_　と認証情報の取得セクションを参照してください
 
    .. figure:: images/buckets_08.png
 
-#. Check the **Always Trust** checkbox, and then click **Continue** in the **The certificate is not valid** dialog box.
+#. **Always Trust「常に信頼する」**　チェックボックスをオンにして、**The certificate is not valid「証明書が無効です」** ダイアログボックスで　**Continue「続行」**をクリックします
 
    .. figure:: images/invalid_certificate.png
 
-#. Click **Yes** to continue installing the self-signed certificate.
+#. **Yes「はい」** をクリックして、自己署名証明書のインストールを続行します
 
-#. Navigate to the appropriate bucket set above and verify that it contains content.
+#. 上記の適切なバケットセットに移動し、コンテンツが含まれていることを確認します
 
    .. figure:: images/cloud19.png
 
-   **Congratulations!** You have successfully setup replication between Nutanix Files and Nutanix Objects! Using Peer, this same approach can be leveraged to support scenarios including coexistence of file data with object-based apps and services as well as point-in-time recovery of enterprise NAS data backed by Objects.
+   **おめでとうございます!** Nutanix FilesとNutanix Objects間の複製の設定が完了しました！Peerを使用すると、この同じアプローチを活用して、オブジェクトベースのアプリやサービスとのファイルデータの共存や、オブジェクトに基づくエンタープライズNASデータのポイントインタイムリカバリなどのシナリオをサポートできます
 
-Analyzing Existing Environments
-++++++++++++++++++++++++++++++++++++++++++
+既存の環境の分析
++++++++++++++++
 
-   .. note::
+.. note::
 
-   This exercise requires the :ref:`windows_tools_vm`.
+ 注意:の演習では、:ref:`windows_tools_vm`　が必要です
 
-As the capacity of file server environments increase at a record pace, storage admins often do not know how users and applications are leveraging these file server environments. This fact becomes most evident when it is time to migrate to a new storage platform. The File System Analyzer is a tool from Peer Software that is designed to help partners discover and analyze existing file and folder structures for the purpose of planning and optimization.
+ファイルサーバー環境の容量が記録的なペースで増加しているため、ストレージ管理者は、ユーザーやアプリケーションがこれらのファイルサーバー環境をどのように活用しているかを知らないことがよくあります。この事実は、新しいストレージプラットフォームに移行するときに明らかになります。ファイルシステムアナライザーは、パートナーが既存のファイルとフォルダーの構造を発見して分析し、計画と最適化を行うためのPeerソフトウェアのツールです
 
-The File System Analyzer performs a very fast scan of one or more specified paths, uploads results to Amazon S3, assembles key pieces of information into one or more Excel workbooks, and emails reports with links to access the workbooks.
+ファイルシステムアナライザーは、1つ以上の指定されたパスの非常に高速なスキャンを実行し、結果をAmazon S3にアップロードし、主要な情報を1つ以上のExcelワークブックにまとめ、ワークブックにアクセスするためのリンクを含むレポートを電子メールで送信します
 
-As this tool is primarily for our partners, we would love to hear any feedback you have on it. Reach out to us on Slack via the **#_peer_software_ext** channel with comments and suggestions.
+このツールは主にパートナー向けであるため、ご意見やご感想をお待ちしております
 
-Installing and Running the File System Analyzer
-............
+**#_peer_software_ext** チャネルを介してSlackでコメントや提案を添えてご連絡ください
 
-#. Connect to your *Initials*\ **-Windows-ToolsVM** via RDP using the following credentials:
+ファイルシステムアナライザーのインストールと実行
+.........................................
 
-   - **Username** - NTNXLAB\\Administrator
-   - **Password** - nutanix/4u
+#. 次の資格情報を使用して、RDP経由でI　*Initials*\ **-Windows-ToolsVM**　に接続します
 
-#. Within the VM, download the File System Analyzer installer: https://www.peersoftware.com/downloads/fsa/13/FileSystemAnalyzer_win64.exe
+   - **Username「ユーザー名」** - NTNXLAB\\Administrator
+   - **Password「パスワード-」** - nutanix/4u
 
-#. Run the installer and select **Immediate Installation**.
+#. VM内で、File System Analyzer installer「ファイルシステムアナライザーインストーラー」をダウンロードします：https://www.peersoftware.com/downloads/fsa/13/FileSystemAnalyzer_win64.exe
+
+#. インストーラーを実行し、**Immediate Installation 「即時インストール」** を選択します
 
    .. figure:: images/fsa1.png
 
-   Once the installation is complete, the File System Analyzer wizard is automatically launched.
+   インストールが完了すると、File System Analyzer wizard 「ファイルシステムアナライザウィザード」が自動的に起動します
 
-#. The **Introduction** screen provides details on information collected and reported by the utility. Click **Next**.
+#. **Introduction 「概要画面」** には、ユーティリティによって収集および報告された情報の詳細が表示されます。**Next「次へ」** をクリックします
 
    .. figure:: images/fsa2.png
 
 #. The **Contact Information** screen collects information used to organize the output of the File System Analyzer and to send the final reports. Fill out the following fields:
 
-   - **Company** – Enter your company name.
-   - **Location** – Enter the physical location of the server that is running the File System Analyzer. In multi-site environments, this could be a city or state name. A data center name also works.
-   - **Project** – Enter a project name or business reason for running this analysis. This (and the Company and Location fields) are used solely to organize the final reports.
-   - **Mode** – Select the mode of operation to be used – **General Analysis** or **Migration Preparation**. **Migration Preparation** is useful when preparing for a migration project between storage systems. In addition to collecting standard telemetry on file systems, this mode also offers the option to test performance of both the existing and new storage systems to help gauge potential migration performance and timing. For this lab, we will use **General Analysis**.
-   - **Name/Phone/Title** – *(Optional)* Enter your name and contact information.
-   - **Email** – Enter the email address to which the final reports will be sent. For multiple addresses, enter a comma-separated list.
-   - **Upload Region** – Select **US**, **EU**, or **APAC** to tell the File System Analyzer which S3 location to use for uploading the final reports.
+#. **Contact Information「連絡先情報」** 画面には、ファイルシステムアナライザーの出力を整理し、最終的なレポートを送信するために使用される情報が収集されます。次のフィールドに入力します:
 
-   .. raw:: html
+   - **Company「会社」** – 会社名を入力します
+   - **Location 「場所」** – ファイルシステムアナライザーを実行しているサーバーの物理的な場所を入力します。マルチサイト環境では、これは都市名または州名になります。データセンター名も機能します
+   - **Project 「プロジェクト–」** – この分析を実行するプロジェクト名またはビジネス上の理由を入力します。これ（およびCompanyフィールドとLocationフィールド）は、最終的なレポートを整理するためにのみ使用されます
+   - **Mode「モード–」** – 使用する操作モードを選択します–一般分析または移行準備。移行の準備は、ストレージシステム間の移行プロジェクトを準備するときに役立ちます。このモードでは、ファイルシステムの標準テレメトリを収集するだけでなく、既存のストレージシステムと新しいストレージシステムの両方のパフォーマンスをテストして、移行の潜在的なパフォーマンスとタイミングを測定することもできます。このラボでは、一般分析を使用します　
+   - **Name/Phone/Title「名前/電話/タイトル」** – （オプション）名前と連絡先情報を入力します。
+   - **Email 「電子メール–」** – 最終レポートの送信先の電子メールアドレスを入力します。複数のアドレスの場合は、コンマ区切りのリストを入力します
+   - **Upload Region「アップロードのリージョン」** – 最終レポートのアップロードに使用するS3の場所をFile System Analyzer「ファイルシステムアナライザー」に指示するには、**US**、**EU**、または　**APAC**　を選択します
 
-     <strong><font color="red">Be sure to enter your own details into the wizard page shown below. Otherwise, the final report will not be sent to you.</font></strong>
+   .. note::
+    .. raw:: html
+
+      <strong><font color="red">注意 : 以下に示すウィザードページに、独自の詳細を入力してください。それ以外の場合、最終レポートは送信されません</font></strong>
 
    .. figure:: images/fsa3.png
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-   The File System Analyzer can be configured to scan one or more paths. These paths can be local (e.g., ``D:\MyData``) or a remote UNC Path (e.g., ``\\files01\homes1``).
+   File System Analyzer「ファイルシステムアナライザー」は、1つ以上のパスをスキャンするように構成できます。これらのパスは、ローカル（ ``D:\MyData`` など）またはリモートのUNCパス（ ``\\files01\homes1`` など）にすることができます
 
-#. Add the following paths:
+#. 次のパスを追加します:
 
-   - ``C:\`` - The local C: drive of *Initials*\ **-Windows-ToolsVM**
-   - ``\\BootcampFS\<Your Share Name>\`` - A share previously created on Nutanix Files
+   - ``C:\`` - ローカル C: drive of *Initials*\ **-Windows-ToolsVM**
+   - ``\\BootcampFS\<Your Share Name>\`` - **Nutanix Files** で以前に作成された共有
 
    .. figure:: images/fsa4.png
 
-     Click the **Search** button and enter the name of a file server if you wish to discover the available shares on that file server. You can also right-click within the dialog and select **Check All** to automatically add all discovered shares.
+     ファイルサーバーで使用可能な共有を検出する場合は、**Search「検索」** ボタンをクリックしてファイルサーバーの名前を入力します。ダイアログ内を右クリックして **Check All「すべてチェック」**を選択し、検出されたすべての共有を自動的に追加することもできます
 
    .. figure:: images/fsa4a.png
 
-     Selecting the **Log totals by owner** option will poke every file and folder within the selected scan path(s) for its owner. This owner information will be tallied by bytes, files, and folders and included in the final report.
+     **Log totals by owner「所有者ごとに合計をログに記録する」** オプションを選択すると、選択したスキャンパス内のすべてのファイルとフォルダーがその所有者に送信されます。この所有者情報は、バイト、ファイル、およびフォルダーごとに集計され、最終的なレポートに含まれます
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-   Click the **Start** button to begin scanning the entered paths. When all scans, analyses, and uploads are complete, you will see a status that is similar to the following:
+   **Start「スタート」** ボタンをクリックして、入力したパスのスキャンを開始します。すべてのスキャン、分析、アップロードが完了すると、次のようなステータスが表示されます:
 
    .. figure:: images/fsa5.png
 
-#. File System Analyzer will also email the report to all configured addresses. To view the full report, click the hyperlink(s) listed under **Detailed Reports** in the email. If multiple paths were scanned, you will also see a link to a cumulative report across all paths.
+#. **File System Analyzer** は、構成されたすべてのアドレスにレポートを電子メールで送信します。完全なレポートを表示するには、電子メールの詳細レポートの下に表示されているハイパーリンクをクリックします。複数のパスがスキャンされた場合は、すべてのパスにわたる累積レポートへのリンクも表示されます。
 
    .. figure:: images/fsa6.png
 
    .. note::
 
-     Report download links are active for **24 hours** only. Contact Peer Software to access any expired reports.
+     注意:レポートのダウンロードリンクは、**24時間** のみアクティブです。期限切れのレポートにアクセスするには、Peerソフトウェアに連絡してください
 
    Some systems may open these workbooks in a protected mode, displaying this message in Excel:
 
    .. figure:: images/fsa8.png
 
-   If you see this message at the top of Excel, click **Enable Editing** to fully open the workbook. If you do not do this, the pivot tables and charts will not load properly.
+   一部のシステムでは、これらのワークブックをプロテクトモードで開き、次のメッセージをExcelで表示します
 
-Summary Reports
-............
-Summary reports contain overall statistical and historical information across all paths that have been selected to be scanned.  When you open a summary report, you are greeted with a worksheet like this:
+サマリーレポート
+..............
 
-   .. figure:: images/fsa7.png
+要約レポートには、スキャン対象として選択されたすべてのパスの全体的な統計情報と履歴情報が含まれています。概要レポートを開くと、次のようなワークシートが表示されます
 
-   Each summary report may contain some or all of the following worksheets:
+.. figure:: images/fsa7.png
 
-   - **InfoSheet** – Details about this specific run. This page will also show Total Bytes formatted in both decimal (1 KB is 1,000 bytes) and binary (1 KiB is 1,024 bytes) forms.
-   - **CollectiveResults** – A list of all paths scanned along with high-level statistics for each.
-   - **History-Bytes** – Contains historical changes in bytes for each time each path is scanned.
-   - **History-Files** – Contains historical changes in total number of files for each time each path is scanned.
-   - **History-Folders** – Contains historical changes in total numbers of folders for each time each path is scanned.
+   各要約レポートには、次のワークシートの一部またはすべてが含まれている場合があります:
 
-    .. note::
+   - **InfoSheet** – この特定の実行に関する詳細。このページには、10進数（1 KBは1,000バイト）と2進数（1 KiBは1,024バイト）の両方の形式でフォーマットされた合計バイトも表示されます
+   - **CollectiveResults** – スキャンされたすべてのパスのリストと、それぞれの高レベルの統計
+   - **History-Bytes** – 各パスがスキャンされるたびに、バイト単位の履歴変更が含まれます
+   - **History-Files** – 各パスがスキャンされるたびに、ファイルの総数の履歴変更が含まれます
+   - **History-Folders** – 各パスがスキャンされるたびにフォルダーの総数の履歴変更が含まれます
 
-     History worksheets will only appear after running multiple scans.
+.. note::
 
-Volume Reports
-............
-Volume reports give more detailed information about a specific path that has been scanned. When you open a volume report, you are greeted with a worksheet like this:
+  注意:履歴ワークシートは、複数のスキャンを実行した後にのみ表示されます
 
-   .. figure:: images/fsa7a.png
+ボリュームレポート
+...............
 
-   Each volume report may contain some or all of the following worksheets:
+ボリュームレポートは、スキャンされた特定のパスに関するより詳細な情報を提供します。ボリュームレポートを開くと、次のようなワークシートが表示されます
 
-   - **Overview** – A series of pivot tables and charts showing high-level statistics about the path that was scanned.
-   - **InfoSheet** – Details about this specific scan. This page will also show Total Bytes formatted in both decimal (1 KB is 1,000 bytes) and binary (1 KiB is 1,024 bytes) forms.
-   - **OverallStats** – Overall statistics for the folder that was scanned. This includes total bytes, files, folders, etc.
-   - **Analysis** – Includes a pivot table and a pair of charts highlighting additional statistics about the path that was scanned.
-   - **History** – Shows statistics from each scan of this volume.
-   - **HistoryCharts** – Contains charts showing historical changes in files, folders, and bytes for this volume.
-   - **HighSubFolderCounts** – A list of all folders containing more than 100 child directories.
-   - **HighByteCounts** – A list of all folders containing more than 10GB of child file data.
-   - **HighFileCounts** – A list of all folders containing more than 10,000 child files.
-   - **LargeFiles** – A list of all discovered files that are 10GB or larger.
-   - **DeepPaths** – A list of all discovered folder paths that are 15 levels deep or deeper.
-   - **LongPaths** – A list of all discovered folder paths that are 256 characters or longer.
-   - **ReparsePointsSummary** – A summary of all reparse points discovered, regardless of file or folder.
-   - **ReparsePoints** – A list of all folder reparse points discovered.
-   - **TimeAnalysis** – A breakdown of total files, folders, and bytes by age.
-   - **LastModifiedAnalysis** – A view of all files, folders, and bytes modified each hour for the past year. These numbers are then totaled and averaged to show files, folders, and bytes modified by: day of week; month; hour of the day; day of month; and day of year.
-   - **CreatedAnalysis** – A view of all files, folders, and bytes created each hour for the past year. These numbers are then totaled and averaged to show files, folders, and bytes created by day of week, month, hour of the day, day of month, and day of year.
-   - **LastAccessedAnalysis** – A view of all files, folders, and bytes accessed each hour for the past year. These numbers are then totaled and averaged to show files, folders, and bytes accessed by: day of week; month; hour of the day; day of month; and day of year.
-   - **TLDAnalysis** - A list of each folder immediately under a specified path with statistics for each of these subfolders. In a user home directory environment, each of these subfolders should represent a different user.
-   - **TopTLDsByTotals** – A series of pivot tables and charts showing the top ten top-level directories based on total bytes used, total files, and total folders.
-   - **TopTLDsByLastModBytes** – A pivot table and chart showing top 10 top-level directories based on most bytes modified in the past year.
-   - **TopTLDsByLastModFiles** – A pivot table and chart showing top 10 top-level directories based on most files modified in the past year.
-   - **LegacyTLDs** – A list of all top-level directories that do not contain any files modified in the past 365 days.
-   - **TreeDepth** – A tally of bytes, folders, and files found at each depth level of the folder structure. For customers doing a pre-migration analysis, depths that appear as green are good candidates for PeerSync Migration’s tree depth setting.
-   - **FileExtInfo** – A list of all discovered extensions, including pivot tables sorted by total bytes and total files.
-   - **FileAttributes** – A summary of all file and folder attributes found.
-   - **SmallFileAnalysis** – A list of all files discovered below a certain size. This page is useful for estimating the storage impact of small files on storage platforms that have large minimum file sizes on disk.
-   - **SIDCache** – A list of all the owners and SID strings that have been discovered.
+.. figure:: images/fsa7a.png
 
-    .. note::
+   各ボリュームレポートには、次のワークシートの一部またはすべてが含まれている場合があります:
 
-     History worksheets will only appear after running multiple scans.
+   - **Overview「概要」** – スキャンされたパスに関する高レベルの統計を示す一連のピボットテーブルとグラフ
+   - **InfoSheet** – この特定のスキャンに関する詳細。このページには、10進数（1 KBは1,000バイト）と2進数（1 KiBは1,024バイト）の両方の形式でフォーマットされた合計バイトも表示されます
+   - **OverallStats** – スキャンされたフォルダーの全体的な統計。これには、合計バイト数、ファイル、フォルダなどが含まれます
+   - **Analysis「分析」** – ピボットテーブルと、スキャンされたパスに関する追加の統計を強調表示する2つのチャートが含まれます
+   - **History** – このボリュームの各スキャンの統計を表示します
+   - **HistoryCharts** – このボリュームのファイル、フォルダー、およびバイトの履歴変更を示すグラフが含まれます
+   - **HighSubFolderCounts** – 100を超える子ディレクトリを含むすべてのフォルダのリスト
+   - **HighByteCounts** – 10GBを超える子ファイルデータを含むすべてのフォルダーのリスト
+   - **HighFileCounts** – 10,000を超える子ファイルを含むすべてのフォルダーのリスト
+   - **LargeFiles** – 10GB以上の検出されたすべてのファイルのリスト
+   - **DeepPaths** – 15レベル以上の、検出されたすべてのフォルダーパスのリスト
+   - **LongPaths** – 256文字以上の検出されたすべてのフォルダーパスのリスト
+   - **ReparsePointsSummary** – ファイルやフォルダーに関係なく、検出されたすべての再解析ポイントの概要
+   - **ReparsePoints** – 検出されたすべてのフォルダー再解析ポイントのリスト
+   - **TimeAnalysis** – 経過時間ごとのファイル、フォルダー、およびバイトの合計の内訳
+   - **LastModifiedAnalysis** – month; hour of the day; day of month; and day of year.
+   - **CreatedAnalysis** – 過去1年間に1時間ごとに変更されたすべてのファイル、フォルダー、およびバイトのビュー。次に、これらの数値を合計して平均し、ファイル、フォルダ、およびバイトを次のように変更して表示します。月;一日の時間;月の日。と年の日
+   - **LastAccessedAnalysis** – 過去1年間に1時間ごとに作成されたすべてのファイル、フォルダー、およびバイトのビュー。次に、これらの数値を合計して平均し、曜日、月、時間、日、年ごとに作成されたファイル、フォルダー、およびバイトを表示します
+   - **TLDAnalysis** - 指定されたパスの直下にある各フォルダーのリストと、これらの各サブフォルダーの統計。ユーザーのホームディレクトリ環境では、これらの各サブフォルダーは異なるユーザーを表す必要があります
+   - **TopTLDsByTotals** – 指定されたパスの直下にある各フォルダーのリストと、これらの各サブフォルダーの統計。ユーザーのホームディレクトリ環境では、これらの各サブフォルダーは異なるユーザーを表す必要があります
+   - **TopTLDsByLastModBytes** – 過去1年間に変更されたほとんどのバイトに基づくトップ10のトップレベルディレクトリを示すピボットテーブルとチャート
+   - **TopTLDsByLastModFiles** – 過去1年間に変更されたほとんどのファイルに基づくトップ10のトップレベルディレクトリを示すピボットテーブルとチャート
+   - **LegacyTLDs** – 過去365日間に変更されたファイルを含まないすべてのトップレベルディレクトリのリスト
+   - **TreeDepth** – フォルダ構造の各深度レベルで見つかったバイト、フォルダ、およびファイルの集計。移行前の分析を行うお客様にとって、緑色で表示される深度は、PeerSync移行のツリー深度設定の良い候補です
+   - **FileExtInfo** – 総バイト数と総ファイル数でソートされたピボットテーブルを含む、検出されたすべての拡張機能のリスト
+   - **FileAttributes** – 見つかったすべてのファイルとフォルダーの属性の概要
+   - **SmallFileAnalysis** – 特定のサイズ以下で発見されたすべてのファイルのリスト。このページは、ディスク上の最小ファイルサイズが大きいストレージプラットフォームでの小さなファイルのストレージへの影響を見積もるのに役立ちます
+   - **SIDCache** – 検出されたすべての所有者とSID文字列のリスト
 
-Here is a sample of the **LastModifiedAnalysis** page mentioned above:
+.. note::
 
-   .. figure:: images/fsa7b.png
+ 注意：履歴ワークシートは、複数のスキャンを実行した後にのみ表示されます
 
-Integrating with Microsoft DFS Namespace
-++++++++++++++++++++++++++++++++++++++++
+上記の **LastModifiedAnalysis** ページのサンプルは次のとおりです:
 
-Peer Global File Service includes the ability to create and manage Microsoft DFS Namespaces (DFS-N). When this DFS-N integration is combined with its real-time replication and file locking engine, PeerGFS powers a true global namespace that spans locations and storage devices.
+.. figure:: images/fsa7b.png
 
-As part of its DFS namespace management capabilities, PeerGFS also automatically redirects users away from a failed file server. When that failed server comes back online, PeerGFS brings this file server back in-sync, and then re-enables user access to it. *This is an essential Disaster Recovery feature for any deployment looking to leverage Nutanix Files for user profile and user data shares for VDI environments.*
+Microsoft DFS名前空間との統合
++++++++++++++++++++++++++++
 
-The following screenshot shows the PMC interface with a DFS Namespace under management.
+Peerグローバルファイルサービスには、Microsoft DFS名前空間（DFS-N）を作成および管理する機能が含まれています。このDFS-N統合をリアルタイムのレプリケーションおよびファイルロックエンジンと組み合わせると、PeerGFSは場所やストレージデバイスにまたがる真のグローバルネームスペースを強化します
+
+DFS名前空間管理機能の一部として、PeerGFSは、障害が発生したファイルサーバーからユーザーを自動的にリダイレクトします。障害が発生したサーバーがオンラインに戻ると、PeerGFSはこのファイルサーバーを同期状態に戻し、ユーザーアクセスを再び有効にします。これは、VDI環境のユーザープロファイルとユーザーデータ共有にNutanix Filesを活用しようとするあらゆる展開に不可欠な障害復旧機能です
+
+次のスクリーンショットは、DFS名前空間が管理されているPMCインターフェイスを示しています
 
 .. figure:: images/dfsn.png
 
-Takeaways
-+++++++++
+持ち帰り
++++++++
 
-- Peer Global File Service is the only solution which can provide Active-Active replication for Nutanix Files clusters.
+- Peer Global File Service 「Peerグローバルファイルサービス」　は、Nutanix Filesクラスタにアクティブ-アクティブレプリケーションを提供できる唯一のソリューションです
 
-- Peer also supports multiple legacy NAS platforms and supports replication within mixed environments. This helps ease adoption of and migration to Nutanix Files.
+- Peerは、複数のレガシーNASプラットフォームもサポートし、混合環境内でのレプリケーションをサポートします。これにより、Nutanix Filesの採用と移行が容易になります
 
-- Peer can directly manage Microsoft Distributed File Services (DFS) namespaces, allowing multiple file servers to be presented through a single namespace. This is a key component for supporting true Active-Active DR solutions for file sharing.
+- PeerはMicrosoft分散ファイルサービス（DFS）名前空間を直接管理できるため、単一の名前空間を通じて複数のファイルサーバーを提供できます。これは、ファイル共有のための真のアクティブ-アクティブDRソリューションをサポートするための重要なコンポーネントです
 
-- Peer can replicate files from Nutanix Files and other NAS platforms into Nutanix Objects with optional snapshot capabilities for point-in-time recovery. All objects are in a transparent format that can be immediately used by other apps and services.
+- Peerは、ポイントインタイムリカバリ用のオプションのスナップショット機能を使用して、Nutanix Filesおよびその他のNASプラットフォームからNutanix Objectsにファイルを複製できます。すべてのオブジェクトは、他のアプリやサービスですぐに使用できる透過的な形式です
 
-- Peer offers tools for analyzing existing file servers to help with resource planning, optimization, and minimally disruptive migrations.
+- Peerは、既存のファイルサーバーを分析するためのツールを提供し、リソースの計画、最適化、最小限の中断による移行を支援します
