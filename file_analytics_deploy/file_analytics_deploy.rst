@@ -43,7 +43,7 @@ File Analytics: デプロイ
 #. **Enable File Analytics「ファイル分析の有効化」** ページで、ドメイン管理者を入力します。これは、ファイルサーバー管理者でもあります
 
    - **Username「ユーザー名」**: administrator
-   - **Password「パスワード**: nutanix/4u
+   - **Password「パスワード」**: nutanix/4u
 
    .. figure:: images/34.png
 

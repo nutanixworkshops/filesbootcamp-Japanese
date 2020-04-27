@@ -66,462 +66,464 @@ Peer VMs
    * - **PeerAgent-Win**
      - このWindowsファイルサーバーはレプリケーションのターゲットとして使用されます
 
-Configuring Nutanix Files
-............
+Nutanix Filesの構成
+...................
 
-Peer Global File Service requires both a File Server Admin account as well as REST API access to orchestrate replication to or from Nutanix Files.
+Peerグローバルファイルサービスでは、Nutanix Filesとの間でレプリケーションをオーケストレーションするために、ファイルサーバー管理者アカウントとREST APIアクセスの両方が必要です
 
-#. Log in to **Prism Element** (e.g. 10.XX.YY.37) on your Nutanix cluster.
+#. Nutanixクラスターの **Prism Element**（10.XX.YY.37など）にログインします
 
-#. Navigate to **File Server** from the drop down navigation and select the **BootcampFS** deployment.
+#. ドロップダウンナビゲーションからファイルサーバーに移動し、**BootcampFS** デプロイメントを選択します
 
-#. Click **+ Share/Export** and fill out the following fields:
+#. **+ Share/Export 「+共有/エクスポート」 ** をクリックし、次のフィールドに入力します
 
-   - **Name** - *Initials*\ **-Peer**
-   - **Description (Optional)** - Leave blank.
-   - **File Server** - **BootcampFS**
-   - **Share Path (Optional)** - Leave blank.
-   - **Max Size (Optional)** - Leave blank.
-   - **Select Protocol** - SMB
+   - **Name 「名前」** - *Initials*\ **-Peer**
+   - **Description (Optional)  「説明（オプション）」** - Leave blank「空白のままにします」
+   - **File Server 「ファイルサーバ」** - **BootcampFS**
+   - **Share Path (Optional) 「共有パス（オプション）」** - Leave blank 「空白のままにします」
+   - **Max Size (Optional) 「最大サイズ（オプション）」** - Leave blank 「空白のままにします」
+   - **Select Protocol「プロトコルの選択」** - SMB
 
    .. figure:: images/5.png
 
-#. Click **Next**, **Next**, and then **Create**.
+#. **Next 「次へ」**, **Next「次へ」**, **Create「作成」** の順にクリックします
 
-#. Click **Manage roles**.
+#. **Manage roles「役割の管理」**　をクリックします
 
    .. figure:: images/6.png
 
-#. Under **Add admins**, **NTNXLAB\\Administrator** should already be added as a **File Server Admin**. If not, click **+ New user** and add **NTNXLAB\\Administrator**.
+#. **Add admins 「管理者の追加」** で、**NTNXLAB\\Administrator** が　**File Server Admin 「ファイルサーバー管理者」** として既に追加されている必要があります。そうでない場合は、**+ New user 「+新しいユーザー」** をクリックして、**NTNXLAB\\Administrator** を追加します
 
    .. figure:: images/7.png
 
    .. note::
 
-     In a production environment, you would likely use an Active Directory service account for Peer.
+     注意：運用環境では、PeerのActive Directoryサービスアカウントを使用する可能性があります
 
-#. Under **REST API access users**, check to see if a **peer** account has already been created. If not, click **+ Add new user**, fill out the following fields, and click **Save**:
+#. **REST API access users 「REST APIアクセスユーザーの下」**で、**peer** カウントがすでに作成されているかどうかを確認します。そうでない場合は、**+ Add new user 「+新しいユーザーを追加」** をクリックし、次のフィールドに入力して、**Save「保存」** をクリックします
 
-   - **Username** - peer
+   - **Username ユーザー名** - peer
 
-     *The username must be in all lower case.*
+     *ユーザー名はすべて小文字でなければなりません*
 
-   - **Password** - nutanix/4u
+   - **Password　パスワード** - nutanix/4u
 
    .. figure:: images/8.png
 
    .. note::
 
-     All participants on a single Nutanix AOS cluster will be sharing the same **BootcampFS** file server, as well as the **peer** API account.
+     注意：単一のNutanix AOSクラスタのすべての参加者は、同じ　**BootcampFS**　ファイルサーバーと　**peer**　APIアカウントを共有します
 
-#. Click **Close**.
+#. **Close「閉じる」** をクリックします
 
-Staging Test Data on PeerAgent-Win
-...................
+PeerAgent-Winでのテストデータのステージング
+......................................
 
-The final step of staging the lab is creating some sample data on PeerAgent-Win, which will be acting as a Windows File Server. Peer is capable of replicating between multiple Files clusters, as well as between a mix of Files and other NAS platforms. For this lab, you will be replicating between your Nutanix Files cluster and a Windows File Server.
+ラボのステージングの最後のステップは、Windowsファイルサーバーとして機能するPeerAgent-Winでサンプルデータを作成することです。Peerは、複数のFilesクラスター間だけでなく、ファイルと他のNASプラットフォームの混在間でも複製できます。このラボでは、Nutanix FilesクラスターとWindowsファイルサーバー間でレプリケーションを行います
 
-#. Connect to your *Initials*\ **-Windows-ToolsVM** via RDP using the following credentials:
+#. 次の資格情報を使用して、RDP経由で *Initials*\ **-Windows-ToolsVM** に接続します
 
-   - **Username** - NTNXLAB\\Administrator
-   - **Password** - nutanix/4u
+   - **Username 「ユーザー名」** - NTNXLAB\\Administrator
+   - **Password 「パスワード」** - nutanix/4u
 
-#. Open **File Explorer** and navigate to   ``\\PeerAgent-Win\Data``.
+#. **File Explorer 「エクスプローラー」** を開き、``\\PeerAgent-Win\Data`` に移動します
 
-#. Create a copy of the **Sample Data** folder. Rename the copy to *Initials*\ **-Data** as shown below.
+#. **Sample Data 「フォルダーのコピー」** を作成します。以下に示すように、コピーの名前を *Initials*\ **-Data** に変更します
 
    .. figure:: images/2.png
 
 
-Connecting to the Peer Management Center Web Interface
-...................
+Peer Management Center Webインターフェイスへの接続
+...............................................
 
-The Peer Management Center (PMC) serves as the centralized management component for Peer Global File Service. It does not store any file data but does facilitate communication between locations, so it should be deployed at a location with the best connectivity. A single deployment of PMC can manage 100 or more Agents/file servers.
+Peer管理センター（PMC）は、Peerグローバルファイルサービスの集中管理コンポーネントとして機能します。ファイルデータは保存されませんが、場所間の通信を容易にするため、接続性が最も良い場所に展開する必要があります。 PMCの単一の展開で、100以上のエージェント/ファイルサーバーを管理できます
 
-For this lab, you will be accessing a shared PMC deployment via a web interface.
+このラボでは、Webインターフェイスを介して共有PMC展開にアクセスします
 
-#. Open a non-Firefox browser (Chrome, Edge, and Safari will all work) on your *Initials*\ **-Windows-ToolsVM** VM or on your laptop.
+#. Firefox以外のブラウザー（Chrome、Edge、およびSafariはすべて機能します）を、*Initials*\ **-Windows-ToolsVM** VMまたはラップトップで開きます
 
-#. If you are using a browser on your *Initials*\ **-Windows-ToolsVM** VM, browse to https://PeerMgmt:8443/hub
+#. *Initials*\ **-Windows-ToolsVM** VMでブラウザーを使用している場合は、``https://PeerMgmt:8443/hub`` にアクセスします
 
-#. If you are using a browser on your laptop, log in to **Prism Element** (e.g. 10.XX.YY.37) on your Nutanix cluster to find the IP of the PeerMgmt VM, then browse to https://IP-of-PeerMgmt-Server:8443/hub
+#. ラップトップでブラウザーを使用している場合は、Nutanixクラスターの **Prism Element**（例：10.XX.YY.37）にログインして、PeerMgmt VMのIPを見つけ、``https://IP-of-PeerMgmt-Server:8443/hub``
 
-#. When prompted to login, use the following credentials:
+#. ログインを求められたら、次の資格情報を使用します:
 
-   - **Username** - admin
-   - **Password** - nutanix/4u
+   - **Username 「ユーザー名」** - admin
+   - **Password 「パスワード」** - nutanix/4u
 
-#. Once connected, confirm that **PeerAgent-Files** and **PeerAgent-Win** both appear in green in the **Agents** view in the bottom left of the PMC web interface.
+#. 接続が完了したら、**PeerAgent-Files** と **PeerAgent-Win** の両方が、PMC Webインターフェイスの左下の **Agents 「エージェント」** ビューに緑色で表示されていることを確認します
 
    .. figure:: images/pmc.png
 
-Introduction to Peer Global File Service
-++++++++++++++++++
+Peerグローバルファイルサービスの概要
+++++++++++++++++++++++++++++++++
 
-Peer Global File Service utilizes a job-based configuration engine. Several different job types are available to help tackle different file management challenges. A job represents a combination of:
+Peerグローバルファイルサービスは、ジョブベースの構成エンジンを利用します。さまざまなファイル管理の課題への取り組みを支援するために、いくつかの異なるジョブタイプを利用できます。ジョブは次の組み合わせを表します:
 
-- Peer Agents.
-- The file servers that are being monitored by those Agents.
-- A specific share/volume/folder of data on each file server.
-- Various settings tied to replication, synchronization and/or locking.
+- Peerエージェント.
+- それらのエージェントによって監視されているファイルサーバー
+- 各ファイルサーバー上のデータの特定の共有/ボリューム/フォルダ
+- レプリケーション、同期、ロックに関連する各種設定
 
-When creating a new job, you will be prompted by a dialog outlining the different job types and why you would use each type.
+新しいジョブを作成するとき、さまざまなジョブタイプと各タイプを使用する理由を概説するダイアログが表示されます
 
-Available job types include:
+使用可能なジョブタイプは次のとおりです:
 
-- **Cloud Backup and Replication** - Real-time replication from enterprise NAS devices to public and private object storage with support for volume-wide point-in-time recovery. Each file is stored as a single, transparent object with optional version tracking.
-- **DFS-N Management** - Manages new and existing Microsoft DFS Namespaces. Can be combined with File Collaboration and/or File Synchronization jobs to automate DFS failover and failback.
-- **File Collaboration** - Real-time synchronization combined with distributed file locking to power global collaboration and project sharing across enterprise NAS platforms, locations, cloud infrastructures, and organizations.
-- **File Replication** - One-way real-time replication from enterprise NAS platforms to any SMB destination.
-- **File Synchronization** - Multi-directional real-time synchronization powering high availability of user and application data across enterprise NAS platforms, locations, cloud infrastructures, and organizations.
+- **Cloud Backup and Replication** - ボリューム全体のポイントインタイムリカバリをサポートするエンタープライズNASデバイスからパブリックおよびプライベートオブジェクトストレージへのリアルタイムレプリケーション。各ファイルは、オプションのバージョントラッキングを備えた単一の透明なオブジェクトとして保存されます
+- **DFS-N Management** - 新規および既存のMicrosoft DFS名前空間を管理します。ファイルコラボレーションジョブやファイル同期ジョブと組み合わせて、DFSフェイルオーバーとフェイルバックを自動化できます
+- **File Collaboration** - リアルタイム同期と分散ファイルロックを組み合わせることで、エンタープライズNASプラットフォーム、ロケーション、クラウドインフラストラクチャ、組織全体でグローバルコラボレーションとプロジェクト共有を強化します
+- **File Replication** - エンタープライズNASプラットフォームから任意のSMB宛先への一方向のリアルタイムレプリケーション
+- **File Synchronization** - エンタープライズNASプラットフォーム、ロケーション、クラウドインフラストラクチャ、および組織全体でユーザーおよびアプリケーションデータの高可用性を実現する多方向のリアルタイム同期
 
-Creating a New File Collaboration Job
-++++++++++++++++++
+新しいファイルコラボレーションジョブの作成
+++++++++++++++++++++++++++++++++++++
 
-In this section, we will focus on **File Collaboration**.
+このセクションでは、**File Collaboration** に焦点を当てます
 
-#. In the **PMC Web Interface**, click **File > New Job**.
+#. **PMC Web Interface 「インターフェイス」** で、[File]> [New Job]をクリックします
 
-#. Select **File Collaboration** and click **Create**.
+#. **File Collaboration　「ファイルコラボレーション」** を選択し、**Click「作成」** をクリックします
 
    .. figure:: images/17.png
 
-#. Enter *Initials*\  - **Collab** as the name for the job and click **OK**.
+#. ジョブの名前として *Initials*\  - **Collab** を入力し、 **OK** をクリックします
 
    .. figure:: images/18.png
 
-Files and PeerAgent-Files
-....................
+FilesとPeerAgent-ファイル
+........................
 
-#. Click **Add** to begin pairing a Peer Agent with your Nutanix Files cluster.
+#. **Add 「追加」** をクリックして、PeerエージェントとNutanix Filesクラスターのペアリングを開始します
 
    .. figure:: images/19.png
 
-#. Select **Nutanix Files** and click **Next**.
+#. **Nutanix Files** を選択し、**Next「次へ」** をクリックします
 
    .. figure:: images/20.png
 
-#. Select the Agent named **PeerAgent-Files** and click **Next**. This Agent will manage the Files cluster.
+#. **PeerAgent-Files** という名前のエージェントを選択し、**Next「次へ」**をクリックします。このエージェントはFilesクラスターを管理します
 
    .. figure:: images/21.png
 
-#. On the **Storage Information** page, you are prompted to enter credentials for accessing the storage device. If another participant sharing your Files cluster has already done the Peer lab, you can select **Existing Credentials** as shown here.
+#. **Storage Information 「ストレージ情報」** ページで、ストレージデバイスにアクセスするための資格情報を入力するように求められます。Filesクラスターを共有している別の参加者がすでにPeerラボを実施している場合は、次のように既存の　**Existing Credentials「認証情報」** を選択できます
 
    .. figure:: images/22a.png
 
-   If you are the first participant on this cluster to do the Peer lab, **New Credentials** will be automatically selected. Fill out the following fields:
+   このクラスターでPeerラボを実行する最初の参加者である場合、新しい認証情報が自動的に選択されます。次のフィールドに入力します:
 
-   - **Nutanix Files Cluster Name** - BootcampFS
+   - **Nutanix Files Cluster Name「クラスター名」** - BootcampFS
 
-     *The NETBIOS name of the Files cluster that will be paired with the Agent selected in the previous step.*
+     *前の手順で選択したエージェントとペアになるFilesクラスターのNETBIOS名*
 
-   - **Username** - peer
+   - **Username「ユーザー名]** - peer
 
-     *This is the Files API account username configured earlier in the lab and must be in all lower case.*
+     *これは、ラボで以前に構成したFiles APIアカウントのユーザー名であり、すべて小文字でなければなりません*
 
-   - **Password** - nutanix/4u
+   - **Password「パスワード-」** - nutanix/4u
 
-     *The password associated with the Files API account.*
+     *Files APIアカウントに関連付けられているパスワード*
 
-   - **Peer Agent IP** - **PeerAgent-Files** IP Address
+   - **Peer Agent IP Peerエージェント** - **PeerAgent-Files** IP Address
 
-     *The IP address of the Agent server that will receive real-time notifications from the File Activity Monitoring API built into Files. It is selectable from a drop-down list of available IPs on this Agent server.*
+     * ファイルに組み込まれたファイルアクティビティ監視APIからリアルタイム通知を受信するエージェントサーバーのIPアドレス。このエージェントサーバーで使用可能なIPのドロップダウンリストから選択できます*
 
-#. Click **Validate** to confirm Files can be accessed via API using the provided credentials.
+#. **Validate 「検証」** をクリックして、提供された資格情報を使用してAPI経由でファイルにアクセスできることを確認します
 
    .. figure:: images/22.png
 
    .. note::
 
-     Once you enter these credentials, they are reusable when creating new jobs that use this particular Agent. When you create your next job, select **Existing Credentials** on this page to display a list of previously configured credentials.
+     注意 : これらの資格情報を入力すると、この特定のエージェントを使用する新しいジョブを作成するときに再利用できます。次のジョブを作成するときは、このページで「既存の資格情報」を選択して、以前に構成された資格情報のリストを表示します
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-#. Click **Browse** to select the share you wish to replicate. You can also navigate to a subfolder below a share.
+#. **Browse「参照」** をクリックして、複製する共有を選択します。共有の下のサブフォルダーに移動することもできます
 
-#. Select your *Initials*\ **-Peer** share and click **OK**.
+#. *Initials*\ **-Peer** 共有を選択し、**OK** をクリックします
 
    .. figure:: images/23.png
 
    .. note::
 
-     Peer Global File Service supports the replication of data within nested shares starting with Nutanix Files v3.5.1 and above.
+     注意 : Peerグローバルファイルサービスは、Nutanix Filesv3.5.1 以降でネストされた共有内でのデータのレプリケーションをサポートしています
 
    .. note::
 
-     You can only select a single share or folder. You will need to create an additional job for each additional share you wish to replicate.
+     注意 : 選択できる共有またはフォルダは1つだけです。レプリケートする共有を追加するたびに、追加のジョブを作成する必要があります
 
-#. Click **Finish**. You have now completed pairing **PeerAgent-Files** to Nutanix Files.
+#. **Finish 「完了」**をクリックします。これで、**PeerAgent-Files** とNutanix Filesのペアリングが完了しました
 
    .. figure:: images/24.png
 
 PeerAgent-Win
 ..........
 
-To simplify this lab exercise, a second Peer Agent server running on the same cluster will function as a standard Windows File Server. While Peer can be used to replicate shares between Nutanix Files clusters, one of its key advantages is the ability to work with a mix of NAS platforms. This can help drive adoption of Nutanix Files when only a single site has been refreshed with Nutanix Files, but replication is still required to support collaboration or disaster recovery.
+このラボの演習を簡略化するために、同じクラスターで実行されている2番目のPeerエージェントサーバーは、標準のWindowsファイルサーバーとして機能します。 Peerを使用してNutanix Filesクラスター間で共有をレプリケートできますが、その主な利点の1つは、NASプラットフォームの組み合わせを操作できることです。 これにより、Nutanix Filesで単一のサイトのみが更新された場合でもNutanix Filesの採用を促進できますが、コラボレーションまたは災害復旧をサポートするにはレプリケーションが必要です
 
-#. Repeat Steps 1-8 in `Files and PeerAgent-Files`_ to add **PeerAgent-Win** to the job, :html:`<strong><font color="red">making the following changes</font></strong>`:
+#. ファイルと　`Files and PeerAgent-Files`　の手順1〜8を繰り返して、**PeerAgent-Win** をジョブに追加し、次の変更を行います
 
-   - **Storage Platform** - Windows File Server
-   - **Management Agent** - PeerAgent-Win
-   - **Path** - C:\\Data\\*Initials*\ **-Data**
+   - **Storage Platform「ストレージプラットフォーム」** - Windows File Server
+   - **Management Agent「管理エージェント」** - PeerAgent-Win
+   - **Path「パス」** - C:\\Data\\*Initials*\ **-Data**
 
    .. figure:: images/25.png
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-Completing Collaboration Job Configuration
-............................
+コラボレーションジョブ構成の完了
+...........................
 
-Peer offers robust functionality for handling the synchronization of NTFS permissions between shares:
+Peerは、共有間のNTFSアクセス許可の同期を処理するための堅牢な機能を提供します:
 
 - **Enable synchronizing NTFS security descriptors in real-time**
 
-  *Select this checkbox if you want changes to file and folder permissions to be replicated to the remote file servers as they occur.*
+  *ファイルおよびフォルダーのアクセス許可への変更をリモートファイルサーバーにレプリケートする場合は、このチェックボックスをオンにします*
 
 - **Enable synchronizing NTFS security descriptors with master host during initial scan**
 
-  *Select this if you want the initial scan to look for and replicate any permissions that are not in sync across file servers.  This requires selecting a master host to help resolve situations where the engine cannot pick a winner in a permission discrepancy.*
+  *最初のスキャンでファイルサーバー間で同期されていない権限を検索して複製する場合は、これを選択します。これには、エンジンが権限の不一致で勝者を選択できない状況を解決するために、マスターホストを選択する必要があります*
 
 - **Synchronize Security Description Options**
 
-  *(Optional) Select the NTFS permission types you would like to replicate.*
+  *(オプション）複製するNTFSアクセス許可の種類を選択します*
 
   - **Owner**
 
-    *The NTFS Creator-Owner who owns the object (which is, by default, whoever created it).*
+    *オブジェクトを所有するNTFS作成者-所有者（デフォルトでは、作成者）*
 
   - **DACL**
 
-    *A Discretionary Access Control List identifies the users and groups that are assigned or denied access permissions on a file or folder.*
+    *随意アクセス制御リストは、ファイルまたはフォルダーへのアクセス許可が割り当てられている、または拒否されているユーザーとグループを識別します*
 
   - **SACL**
 
-    *A System Access Control List enables administrators to log attempts to access a secured file or folder. It is used for auditing.*
+    *管理者は、システムアクセスコントロールリストを使用して、保護されたファイルまたはフォルダへのアクセス試行をログに記録できます。監査に使用されます*
 
 - **File Metadata Conflict Resolution**
 
-  *If there is a permission discrepancy between two or more sites, the permissions set on the file server tied to the master host will override those on the other file servers.*
+  *2つ以上のサイト間に権限の不一致がある場合、マスターホストに関連付けられたファイルサーバーに設定された権限は、他のファイルサーバーの権限よりも優先されます*
 
-#. For the purposes of this lab exercise, accept the default configuration and click **Next**.
+#. この実習ラボでは、デフォルトの構成を受け入れて、*Next「次へ」** をクリックします**Next**.
 
    .. figure:: images/26.png
 
-#. Under **Application Support**, select **Microsoft Office**.
+#. **Application Support 「アプリケーションサポート」** で、**Microsoft Office** を選択します
 
-   The Peer synchronization and locking engine is automatically optimized to best support any of the selected applications.
+   Peerの同期およびロックエンジンは自動的に最適化され、選択したアプリケーションのいずれかを最適にサポートします
 
    .. figure:: images/27.png
 
-#. Click **Finish** to complete the job setup.
+#. **Finish「完了」** をクリックして、ジョブのセットアップを完了します
 
-Starting a Collaboration Job
-++++++++++++++
+コラボレーションジョブの開始
+++++++++++++++++++++++++
 
-Once a job has been created, it must be started to initiate synchronization and file locking.
+ジョブが作成されたら、同期とファイルロックを開始するためにジョブを開始する必要があります
 
-#. In the **PMC Web Interface**, under **Jobs**, right-click on your newly created job, and then select **Start**.
+#. In the **PMC Web Interface**, under **Jobs**, right-click on your newly created job, and then select **Start**
+
+#. **PMC Web Interface 「PMC Webインターフェイス」** の **Jobs「ジョブ」** で、新しく作成したジョブを右クリックし、**Start「開始」** を選択します
 
    .. figure:: images/28.png
 
-   When the job starts:
+   ジョブが開始したとき:
 
-   - Connectivity to all Agents and Files clusters (or other NAS devices) is checked.
-   - The real-time monitoring engine is initialized.
-   - A background scan is kicked off to ensure all file servers are in sync with another.
+   - すべてのエージェントとFilesのクラスター（または他のNASデバイス）への接続がチェックされます
+   - リアルタイム監視エンジンが初期化されます
+   - すべてのファイルサーバーが別のサーバーと同期していることを確認するために、バックグラウンドスキャンが開始されます
 
-#. Double-click the job in the **Job** pane to view its runtime information and statistics.
+#. ジョブペインでジョブをダブルクリックして、ランタイム情報と統計を表示します
 
    .. note::
 
-     Click **Auto-Update** to have the console regularly refresh as files begin replicating.
+     注意 : Auto-update 「自動更新　」をクリックして、ファイルの複製が開始されるときにコンソールを定期的に更新します
 
    .. figure:: images/29.png
 
-Testing Collaboration
-+++++++++++++++++
+コラボレーションのテスト
++++++++++++++++++++++
 
-The easiest way to verify synchronization is functioning properly is to open separate File Explorer windows for the Nutanix Files and Windows File Server paths.
+同期が適切に機能していることを確認する最も簡単な方法は、Nutanix FilesとWindowsファイルサーバーのパスに対して別々のファイルエクスプローラーウィンドウを開くことです
 
 .. note::
 
-  Do **not** test using an Agent server VM. All activity from these servers are automatically filtered to reduce overhead on the Nutanix Files cluster.
+  注意　：エージェントサーバーVMを使用してテストしないでください。これらのサーバーからのすべてのアクティビティは自動的にフィルタリングされ、Nutanix Filesクラスターのオーバーヘッドが削減されます
 
-#. Connect to your *Initials*\ **-Windows-ToolsVM** via RDP using the following credentials:
+#. 次の資格情報を使用して、RDP経由で *Initials*\ **-Windows-ToolsVM** に接続します
 
-   - **Username** - NTNXLAB\\Administrator
-   - **Password** - nutanix/4u
+   - **Username 「ユーザー名」** - NTNXLAB\\Administrator
+   - **Password 「パスワード」** - nutanix/4u
 
-#. Open File Explorer and browse to your Nutanix Files share, e.g., ``\\BootcampFS\Initials-Peer``. Drag this window to the left side of the desktop.
+#. ファイルエクスプローラーを開き、Nutanix Files共有（例： ``\\BootcampFS\Initials-Peer`` ）を参照します。このウィンドウをデスクトップの左側にドラッグします
 
-   Note that the sample data seeded in the Windows File Server during lab setup has already been replicated to Nutanix Files.
+   ラボのセットアップ中にWindowsファイルサーバーにシードされたサンプルデータは、既にNutanix Filesに複製されていることに注意してください
 
    .. note::
 
-     You can also verify the replicated files in **Prism > File Server**.
+     注意 : **Prism > File Server** で複製されたファイルを確認することもできます
 
-#. Open a second File Explorer window and browse to your Windows File Server share, e.g., ``\\PeerAgent-Win\Data\Initials-Data``. Drag this window to the right side of the desktop.
+#. 2番目のファイルエクスプローラーウィンドウを開き、Windowsファイルサーバー共有（例： ``\\PeerAgent-Win\Data\Initials-Data`` ）を参照します。このウィンドウをデスクトップの右側にドラッグします
 
    .. figure:: images/30.png
 
-#. In the File Explorer on the left, create a copy of one of the sample data directories by copying and pasting within the root of the share (shown below).
+#. 左側のファイルエクスプローラーで、共有のルート内にコピーアンドペーストして、サンプルデータディレクトリの1つのコピーを作成します（以下を参照)
 
    .. figure:: images/31.png
 
    .. figure:: images/32.png
 
-#. The changes that are performed on the Nutanix Files share will be sent to its paired Agent; the Agent will then facilitate the replication of these files and folders to the other server (and vice versa).
+#. Nutanix Files共有で実行される変更は、ペアになっているエージェントに送信されます。エージェントは、これらのファイルとフォルダを他のサーバーに（およびその逆に）複製しやすくします
 
    .. figure:: images/33.png
 
-#. To test file locking, create a new OpenDocument Text file within the root of your Nutanix Files share, e.g., ``\\BootcampFS\Initials-Peer``.
+#. ファイルロックをテストするには、Nutanix Files共有のルート内に新しいOpenDocumentテキストファイルを作成します（例：``\\BootcampFS\Initials-Peer`` ）
 
    .. figure:: images/34.png
 
-#. Name the file. Within a few seconds, it should appear under your Windows File Server share, e.g., ``\\PeerAgent-Win\Data\Initials-Data``.
+#. ファイルに名前を付けます。数秒以内に、Windowsファイルサーバー共有の下に表示されます（例： ``\\PeerAgent-Win\Data\Initials-Data`` )
 
    .. figure:: images/35.png
 
-#. Open the file under the Nutanix Files share with OpenOffice Writer. Next, open the file with the same name under ``\\PeerAgent-Win\Data\Initials-Data``. You should see the following warning that the file is locked.
+#. OpenOffice WriterでNutanix Files共有の下にあるファイルを開きます。次に、``\\PeerAgent-Win\Data\Initials-Data`` で同じ名前のファイルを開きます。ファイルがロックされているという次の警告が表示されます
 
    .. figure:: images/36.png
 
-   **Congratulations!** You have successfully deployed an Active-Active file share replicated across two file servers. Using Peer, this same approach can be leveraged to support file collaboration across sites, migrations from legacy solutions to Nutanix Files, or disaster recovery for use cases such as VDI, where user data and profiles need to be accessible from multiple sites for business continuity.
+   **おめでとうございます!** 2つのファイルサーバー間でレプリケートされたアクティブ-アクティブファイル共有を正常に展開しました。Peerを使用すると、この同じアプローチを活用して、サイト間のファイルコラボレーション、レガシーソリューションからNutanix Filesへの移行、またはビジネス継続性のために複数のサイトからユーザーデータとプロファイルにアクセスする必要があるVDIなどのユースケースの災害復旧をサポートできます
 
-Working with Nutanix Objects
-++++++++++++++
+Nutanix Objectsの操作
++++++++++++++++++++++
 
-Peer Global File Service includes the ability to push data from NAS devices into object storage. The same real-time replication technology used to power the collaboration scenario above can also be used to replicate data into Nutanix Objects with optional snapshot capabilities for point-in-time recovery. All objects are replicated in a transparent format that can be immediately used by other apps and services.
+Peerグローバルファイルサービスには、NASデバイスからオブジェクトストレージにデータをプッシュする機能が含まれています。上記のコラボレーションシナリオを強化するために使用されたものと同じリアルタイムレプリケーションテクノロジーを使用して、ポイントインタイムリカバリ用のオプションのスナップショット機能を備えたNutanix Objectsにデータをレプリケートすることもできます。すべてのオブジェクトは、他のアプリやサービスですぐに使用できる透過的な形式で複製されます
 
-This lab section will walk you through the necessary steps to replicate data from Nutanix Files into Nutanix Objects.
+このラボセクションでは、**Nutanix Files** から **Nutanix Objects** にデータを複製するために必要な手順について説明します
 
-Getting Client IP and Credentials for Nutanix Objects
-............
+Nutanix ObjectsのクライアントIPと認証情報を取得する
+..............................................
 
-In order to replicate data into Objects, you need the Client IP of the object store and need to generate access and secret keys. If you already have this information from a prior lab, you can skip this section and re-use that existing information.
+データをObjectsに複製するには、オブジェクトストアのクライアントIPが必要であり、アクセスキーと秘密キーを生成する必要があります。前のラボからこの情報を既に入手している場合は、このセクションをスキップして、既存の情報を再利用できます
 
-#. Log in to **Prism Central** (e.g., 10.XX.YY.39) on your Nutanix cluster, and then navigate to **Services** > **Objects**.
+#. Nutanixクラスターの **Prism Central** （10.XX.YY.39 など）にログインし、**Servicesサービス** > **Objectsオブジェクト** に移動します
 
-#. In the **Object Stores** section, find the appropriate object store in the table and note the Client Used IPs.
+#. **Object Stores「オブジェクトストア」** セクションで、テーブルから適切なオブジェクトストアを見つけ、クライアントが使用しているIPをメモします
 
    .. figure:: images/clientip.png
 
-#. Click on the **Access Keys** section and click **Add People** to begin the process for creating credentials.
+#. **Access Keys「アクセスキー」** セクションをクリックし、ユーザーの追加をクリックして、資格情報の作成プロセスを開始します
 
    .. figure:: images/buckets_add_people.png
 
-#. Select **Add people not in Active Directory** and enter your e-mail address.
+#. **Add people not in Active Directory　「Active Directoryに含まれていないユーザー」** を追加する]を選択し、電子メールアドレスを入力します
 
    .. figure:: images/buckets_add_people2.png
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-#. Click **Download Keys** to download a .csv file containing the **Access Key** and **Secret Key**.
+#. **Download Keys 「キーのダウンロード」** をクリックして、**Access Key 「アクセスキー」** と **Secret Key 「シークレットキー」**を含む **.csv** ファイルをダウンロードします
 
    .. figure:: images/buckets_add_people3.png
 
-#. Click **Close**.
+#. **Close「閉じる」**　をクリックします.
 
-#. Open the file with a text editor.
+#. テキストエディタでファイルを開きます.
 
    .. figure:: images/buckets_csv_file.png
 
    .. note::
 
-     Keep the text file open so that you have the access and secret keys readily available for the sections below.
+     注意 ：　テキストファイルを開いたままにして、以下のセクションですぐに使用できるアクセスキーと秘密キーを用意します
 
-Creating a New Cloud Replication Job
-............
+新しいクラウドレプリケーションジョブの作成
+....................................
 
-In this section, we will focus on creating a **Cloud Backup and Replication** job to replicate data from Nutanix Files into Nutanix Objects.
+このセクションでは、**Nutanix Files** から **Nutanix Objects** にデータを複製する **Cloud Backup and Replication 「クラウドバックアップおよびレプリケーションジョブ」** の作成に焦点を当てます
 
-#. In the **PMC Web Interface**, click **File > New Job**.
+#. **PMC Web Interface 「PMC Webインターフェイス」** で、**File > New Job** をクリックします
 
    .. figure:: images/cloud1.png
 
-#. Select **Cloud Backup and Replication** and click **Create**.
+#. **Cloud Backup and Replication「クラウドのバックアップとレプリケーション」** を選択し、**Create「作成」**をクリックします
 
-#. Enter *Initials*\  - **Replication to Objects** as the name for the job and click **OK**.
+#. ジョブの名前として *Initials*\  - **Replication to Objects**と入力し、**OK** をクリックします。
 
    .. figure:: images/cloud2.png
 
-#. Select **Nutanix Files** and click **Next**.
+#. **Nutanix Files** を選択し、**Next** をクリックします
 
    .. figure:: images/cloud3.png
 
-#. Select the Agent named **PeerAgent-Files** and click **Next**. This Agent will manage the Files cluster.
+#. **PeerAgent-Files** という名前のエージェントを選択し、**Next** をクリックします。このエージェントはFilesクラスターを管理します
 
    .. figure:: images/cloud4.png
 
-#. On the **Storage Information** page, you will see one of two pages. If another participant sharing your Files cluster has already done the Peer lab, you can select their **Existing Credentials** as shown here.
+#. **Storage Information 「ストレージ情報」**　ページ に、2つのページのいずれかが表示されます。Filesクラスターを共有する別の参加者がすでにPeerラボを実施している場合は、ここに示すように、既存の認証情報を選択できます
 
    .. figure:: images/cloud5.png
 
-   If you are the first participant on this cluster to do the Peer lab, fill out the following fields:
+   このクラスターでPeerラボを行う最初の参加者である場合は、次のフィールドに入力します:
 
-   - **Nutanix Files Cluster Name** - **BootcampFS**
+   - **Nutanix Files Cluster Name「NutanixFilesのクラスター名」** - **BootcampFS**
 
-     *The NETBIOS name of the Files cluster that will be paired with the Agent selected in the previous step.*
+     *前の手順で選択したエージェントとペアになるFilesクラスターのNETBIOS名*
 
-   - **Username** - peer
+   - **Username「ユーザー名」** - peer
 
-     *This is the Files API account username configured earlier in the lab and MUST be in all lower case.*
+     *これは、ラボで以前に構成したFiles APIアカウントのユーザー名であり、すべて小文字にする必要があります*
 
-   - **Password** - nutanix/4u
+   - **Password「パスワード」** - nutanix/4u
 
-     *The password associated with the Files API account.*
+     *Files APIアカウントに関連付けられているパスワード*
 
-   - **Peer Agent IP** - **PeerAgent-Files** IP Address
+   - **Peer Agent IP「PeerエージェントIP」** - **PeerAgent-Files** IP Address
 
-     *The IP address of the Agent server that will receive real-time notifications from the File Activity Monitoring API built into Files. It will be selectable from a dropdown list of available IPs on this Agent server.*
+     *Filesに組み込まれたファイルアクティビティ監視APIからリアルタイム通知を受信するエージェントサーバーのIPアドレス。このエージェントサーバーで使用可能なIPのドロップダウンリストから選択できます*
 
-#. Click **Validate** to confirm Files can be accessed via API using the provided credentials.
+#. **Validate「検証」** をクリックして、提供された資格情報を使用してAPI経由でFilesにアクセスできることを確認します
 
    .. figure:: images/cloud6.png
 
    .. note::
 
-     Once you enter these credentials, they are reusable when creating new jobs that use this particular Agent. When you create your next job, select **Existing Credentials** on this page to display a list of previously configured credentials.
+     注意：これらの資格情報を入力すると、この特定のエージェントを使用する新しいジョブを作成するときに再利用できます。次のジョブを作成するときは、このページで「既存の資格情報」を選択して、以前に構成された資格情報のリストを表示します
 
-#. Click **Next**.
+#. **Next「次へ」**　をクリックします
 
-#. Select your *Initials*\ **-Peer** share and click **OK**.
+#. *Initials*\ **-Peer** 共有を選択し、**OK**　をクリックします
 
    .. figure:: images/cloud7.png
 
    .. note::
 
-     Peer Global File Service supports the replication of data within nested shares starting with Nutanix Files v3.5.1 and above.
+     注意：Peerグローバルファイルサービスは、Nutanix Filesv3.5.1以降でネストされた共有内でのデータのレプリケーションをサポートしています
 
    .. note::
 
-     With **Cloud Backup and Replication**, you can select multiple shares and/or folders for a single job.
+     注意：**Cloud Backup and Replication「クラウドバックアップとレプリケーション」** を使用すると、1つのジョブに対して複数の共有やフォルダを選択できます
 
-#. On the **File Filters** page, verify the **Default** filter selected as well as the **Include Files Without Extensions**, and click **Next**.
+#. **File Filters 「ファイルフィルター」** ページで、選択した[デフォルトフィルター]および **Include Files Without Extensions「拡張子のないインクルードファイル」**　を確認し、**Next[次へ]**　をクリックします
 
    .. figure:: images/cloud8.png
 
-#. On the **Destination** page, select **Nutanix Objects** and click **Next**.
+#. **Destination　「宛先」** ページで、**Nutanix Objects**　を選択し、**Next「次へ」** をクリックします
 
    .. figure:: images/cloud9.png
 
-#. On the **Nutanix Objects Credentials** page, fill out the following fields:
+#. **Nutanix Objects Credentials** ページで、次のフィールドに入力します:
 
-   - **Description** – Name your destination
+   - **説明** -目的地に名前を付けます
 
-     *This is a short name for the Objects credential configuration.*
+     *これは、Objects資格情報構成の短い名前です*
 
-   - **Access Key**
+   - **Access Key 「アクセスキー」**
 
-     *The Access Key associated with the Objects account.*
+     *Objectsアカウントに関連付けられたアクセスキー*
 
-   - **Secret Key**
+   - **Secret Key「秘密鍵」**
 
-     *The Secret Key associated with the Objects account.*
+     *Objectsアカウントに関連付けられた秘密鍵*
 
-   - **Service Point**
+   - **Service Point「サービスポイント」**
 
-     *The client access IP address or FDQN name of the object store.*
+     * オブジェクトストアのクライアントアクセスIPアドレスまたはFDQN名*
 
    .. figure:: images/cloud10.png
 
@@ -529,74 +531,74 @@ In this section, we will focus on creating a **Cloud Backup and Replication** jo
 
      Refer to the `Getting Client IP and Credentials for Nutanix Objects`_ section above for the appropriate access and secret keys, as well as the Client IP of the object store.
 
-#. Click **Validate** to confirm Objects can be accessed using the provided configuration.
+#. **Validate「検証」**　をクリックして、提供された構成を使用してObjectsにアクセスできることを確認します
 
    .. figure:: images/cloud11.png
 
-#. Click **OK** in the **Success** window, and then click **Next**.
+#. **Success「成功」**　ウィンドウで　**OK**　をクリックし、**Next「次へ」**　をクリックします
 
-#. On the **Bucket Details** page, deselect the **Automatically name** checkbox, and then provide a unique bucket name of *initials*\ -**peer-objects**.
+#. On the **Bucket Details「バケットの詳細」** ページで、**Automatically name　自動的に名前を付ける]** チェックボックスをオフにし、*initials*\ -**peer-objects**　の一意のバケット名を指定します
 
    .. figure:: images/cloud12.png
 
       .. note::
 
-     The bucket name MUST be in all lower case.
+       The bucket name MUST be in all lower case.
 
-#. On the **Replication and Retention Policy** page, select **Existing Policy**, **Continuous Data Protection**, and then click **Next**.
+#. **Replication and Retention Policy 「レプリケーションと保存ポリシー」** ページで、**Existing Policy 「既存のポリシー」** 、**Continuous Data Protection 「継続的なデータ保護」** を選択し、**Next「次へ」**をクリックします
 
    .. figure:: images/cloud13.png
 
-#. Click **Next** on the **Miscellaneous Options**, **Email Alerts**, and **SNMP Alerts** pages.
+#. **Miscellaneous Options「その他のオプション」、**Email Alerts「電子メールアラート」** 、および　**SNMP Alerts「SNMPアラート」**　ページで　**Next「次へ」**　をクリックします
 
-#. Review the configuration on the **Confirmation** screen, and then then click **Finish**.
+#. **Confirmation 「確認」** 画面で構成を確認し、**Finish 「完了」**をクリックします
 
    .. figure:: images/cloud14.png
 
-Starting a Cloud Replication Job
-............
+クラウドレプリケーションジョブの開始
+................................
 
-Once a job has been created, it must be started to initiate replication.
+ジョブが作成されたら、複製を開始するためにジョブを開始する必要があります
 
-#. In the **PMC Web Interface**, right-click on your newly created job, and then select **Start**.
+#. **PMC Web Interface「PMC Webインターフェイス」** で、新しく作成したジョブを右クリックし、**Start「開始」**を選択します
 
    .. figure:: images/cloud15.png
 
-#. Double-click the job in the **Job** pane to view its runtime information and statistics.
+#. ジョブペインで **Job「ジョブ」** をダブルクリックして、ランタイム情報と統計を表示します
 
    .. figure:: images/cloud16.png
 
    .. note::
 
-     Click **Auto-Update** to have the console regularly refresh as files begin replicating.
+     注意：**Auto-Update「自動更新」** をクリックして、ファイルの複製が開始されるときにコンソールを定期的に更新します
 
-Verifying Replication
-............
+レプリケーションの確認
+....................
 
    .. note::
 
-    This exercise requires the :ref:`windows_tools_vm`.
+    この演習では、:ref:`windows_tools_vm` が必要です
 
-The easiest way to verify that files have been replicated into Nutanix Objects is to use the Cyberduck tool on your *Initials*\ **-Windows-ToolsVM**
+ファイルがNutanix Objectsに複製されたことを確認する最も簡単な方法は、*Initials*\ **-Windows-ToolsVM** でCyberduckツールを使用することです
 
-#. Connect to your *Initials*\ **-Windows-ToolsVM** via RDP using the following credentials:
+#. 次の資格情報を使用して、RDP経由で **Initials*\ **-Windows-ToolsVM** に接続します
 
-   - **Username** - NTNXLAB\\Administrator
-   - **Password** - nutanix/4u
+   - **Username 「ユーザー名」** - NTNXLAB\\Administrator
+   - **Password 「パスワード」** - nutanix/4u
 
-#. Launch **Cyberduck** (Click the Window icon > Down Arrow > Cyberduck).
+#. **Cyberduck**　を起動します（ウィンドウアイコン>下矢印> Cyberduckをクリックします）
 
-   If you are prompted to update Cyberduck, click **Skip This Version**.
+   Cyberduckを更新するように求められたら、**Skip This Version「このバージョンをスキップ」** をクリックします .
 
-#. Click on **Open Connection**.
+#. **Open Connection「接続を開く」** をクリックします
 
    .. figure:: images/buckets_06.png
 
-#. Select **Amazon S3** from the dropdown list.
+#. ドロップダウンリストから　**Amazon S3**　を選択します
 
    .. figure:: images/buckets_07.png
 
-#. Fill out the following fields for the user created earlier, and then click **Connect**:
+#. 前に作成したユーザーの次のフィールドに入力し、**Connect「接続」** をクリックします
 
    - **Server**  - *Objects Client Used IP*
    - **Port**  - 443
