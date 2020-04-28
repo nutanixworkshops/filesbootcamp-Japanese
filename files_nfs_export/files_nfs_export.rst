@@ -15,7 +15,7 @@ NFSエクスポートの使用
 NFSプロトコルを有効にする
 .....................
 
-.. 注意::
+.. note::
 
    NFSプロトコルの有効化は、ファイルサーバーごとに1回だけ実行する必要があり、環境内ですでに完了している場合があります。 NFSがすでに有効になっている場合は、「ユーザーマッピングの構成」に進みます
 
@@ -64,9 +64,10 @@ NFSプロトコルを有効にする
 エクスポートのテスト
 .................
 
-You will first provision a CentOS VM to use as a client for your Files export.
+最初に、:ref:`linux_tools_vm` をプロビジョニングして、ファイルエクスポートのクライアントとして使用します
 
-.. 注意:: If you have already deployed the :ref:`Linux Tools VM`を別のラボの一部としてすでに展開している場合は、代わりにこのVMをNFSクライアントとして使用できます
+.. note::
+ 注意: :ref:`linux_tools_vm` を別のラボの一部としてすでに展開している場合は、代わりにこのVMをNFSクライアントとして使用できます
 
 #. **Prism > VM > Table**, **+ Create VM「VMの作成」** をクリックします
 
