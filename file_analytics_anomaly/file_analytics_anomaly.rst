@@ -25,7 +25,7 @@ Define Anomaly Rules「異常ルールを定義する」
    - **Type「タイプ」:** Hourly 「毎時」
    - **Interval「間隔」:** 1
 
-#. その異常テーブルエントリの「保存]を**Save「選択」**します。
+#. その異常テーブルエントリの「保存」を **Save「選択」** します。
 
 #. **+ Configure new anomaly「新しい異常」** を選択して構成し、次の設定で2番目のルールを作成します
 
@@ -36,7 +36,7 @@ Define Anomaly Rules「異常ルールを定義する」
    - **Type「タイプ」**: Hourly 毎時
    - **Interval「間隔」**: 1
 
-#. その異常テーブルエントリの保存を **Save「選択」**します
+#. その異常テーブルエントリの保存を **Save「選択」** します
 
    .. figure:: images/40.png
 
@@ -64,7 +64,7 @@ Define Anomaly Rules「異常ルールを定義する」
 
 #. **myfile.txt** という「hello world」などのテキストを含むテキストファイルをROディレクトリに作成します
 
-#. **RO** フォルダーの **Properties「プロパティ」**に移動し、[セキュリティ]タブを選択します
+#. **RO** フォルダーの **Properties「プロパティ」** に移動し、[セキュリティ]タブを選択します
 
 #. **Advanced「詳細」**　を選択します
 
@@ -107,7 +107,7 @@ Define Anomaly Rules「異常ルールを定義する」
 
    .. figure:: images/45.png
 
-#. 1分ほどすると、ダッシュボードと **Audit Trails [監査証跡]** ビューの両方にアクセス　**Permission Denials]「許可の拒否」** が表示されます。 ブラウザを更新する必要があるかもしれません
+#. 1分ほどすると、ダッシュボードと **Audit Trails [監査証跡]** ビューの両方にアクセス　**Permission Denials]「許可の拒否」** が表示されます。 表示が更新されていない場合はブラウザを更新します。
 
    .. figure:: images/46.png
 
