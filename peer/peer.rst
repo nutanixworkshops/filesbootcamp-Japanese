@@ -315,7 +315,7 @@ Peerは、共有間のNTFSアクセス許可の同期を処理するための堅
 
   *2つ以上のサイト間に権限の不一致がある場合、マスターホストに関連付けられたファイルサーバーに設定された権限は、他のファイルサーバーの権限よりも優先されます*
 
-#. この実習ラボでは、デフォルトの構成を受け入れて、*Next「次へ」** をクリックします**Next**.
+#. この実習ラボでは、デフォルトの構成を受け入れて、**Next「次へ」** をクリックします.
 
    .. figure:: images/26.png
 
@@ -565,7 +565,7 @@ Nutanix ObjectsのクライアントIPと認証情報を取得する
 
    .. figure:: images/cloud13.png
 
-#. **Miscellaneous Options「その他のオプション」、**Email Alerts「電子メールアラート」** 、および **SNMP Alerts「SNMPアラート」** ページで **Next「次へ」** をクリックします
+#. **Miscellaneous Options「その他のオプション」** 、**Email Alerts「電子メールアラート」** 、および **SNMP Alerts「SNMPアラート」** ページで **Next「次へ」** をクリックします
 
 #. **Confirmation 「確認」** 画面で構成を確認し、**Finish 「完了」** をクリックします
 
