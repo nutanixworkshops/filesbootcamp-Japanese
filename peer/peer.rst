@@ -153,7 +153,7 @@ Peer管理センター（PMC）は、Peerグローバルファイルサービス
 
 #. *Initials*\ **-Windows-ToolsVM** VMでブラウザーを使用している場合は、``https://PeerMgmt:8443/hub`` にアクセスします
 
-#. ラップトップでブラウザーを使用している場合は、Nutanixクラスターの **Prism Element**（例：10.XX.YY.37）にログインして、PeerMgmt VMのIPを見つけ、``https://IP-of-PeerMgmt-Server:8443/hub``
+#. ラップトップでブラウザーを使用している場合は、Nutanixクラスターの **Prism Element** （例：10.XX.YY.37）にログインして、PeerMgmt VMのIPを見つけ、``https://IP-of-PeerMgmt-Server:8443/hub``
 
 #. ログインを求められたら、次の資格情報を使用します:
 
@@ -210,7 +210,7 @@ FilesとPeerAgent-ファイル
 
    .. figure:: images/20.png
 
-#. **PeerAgent-Files** という名前のエージェントを選択し、**Next「次へ」**をクリックします。このエージェントはFilesクラスターを管理します
+#. **PeerAgent-Files** という名前のエージェントを選択し、**Next「次へ」** をクリックします。このエージェントはFilesクラスターを管理します
 
    .. figure:: images/21.png
 
@@ -261,7 +261,7 @@ Filesクラスターを共有している別の参加者がすでにPeerラボ�
 
      注意 : 選択できる共有またはフォルダは1つだけです。レプリケートする共有を追加するたびに、追加のジョブを作成する必要があります
 
-#. **Finish 「完了」**をクリックします。これで、**PeerAgent-Files** とNutanix Filesのペアリングが完了しました
+#. **Finish 「完了」** をクリックします。これで、**PeerAgent-Files** とNutanix Filesのペアリングが完了しました
 
    .. figure:: images/24.png
 
@@ -434,7 +434,7 @@ Nutanix ObjectsのクライアントIPと認証情報を取得する
 
 #. **Next「次へ」** をクリックします
 
-#. **Download Keys 「キーのダウンロード」** をクリックして、**Access Key 「アクセスキー」** と **Secret Key 「シークレットキー」**を含む **.csv** ファイルをダウンロードします
+#. **Download Keys 「キーのダウンロード」** をクリックして、**Access Key 「アクセスキー」** と **Secret Key 「シークレットキー」** を含む **.csv** ファイルをダウンロードします
 
    .. figure:: images/buckets_add_people3.png
 
@@ -457,9 +457,9 @@ Nutanix ObjectsのクライアントIPと認証情報を取得する
 
    .. figure:: images/cloud1.png
 
-#. **Cloud Backup and Replication「クラウドのバックアップとレプリケーション」** を選択し、**Create「作成」**をクリックします
+#. **Cloud Backup and Replication「クラウドのバックアップとレプリケーション」** を選択し、**Create「作成」** をクリックします
 
-#. ジョブの名前として *Initials*\  - **Replication to Objects**と入力し、**OK** をクリックします。
+#. ジョブの名前として *Initials*\  - **Replication to Objects** と入力し、**OK** をクリックします。
 
    .. figure:: images/cloud2.png
 
@@ -561,13 +561,13 @@ Nutanix ObjectsのクライアントIPと認証情報を取得する
 
        The bucket name MUST be in all lower case.
 
-#. **Replication and Retention Policy 「レプリケーションと保存ポリシー」** ページで、**Existing Policy 「既存のポリシー」** 、**Continuous Data Protection 「継続的なデータ保護」** を選択し、**Next「次へ」**をクリックします
+#. **Replication and Retention Policy 「レプリケーションと保存ポリシー」** ページで、**Existing Policy 「既存のポリシー」** 、**Continuous Data Protection 「継続的なデータ保護」** を選択し、**Next「次へ」** をクリックします
 
    .. figure:: images/cloud13.png
 
-#. **Miscellaneous Options「その他のオプション」、**Email Alerts「電子メールアラート」** 、および　**SNMP Alerts「SNMPアラート」**　ページで　**Next「次へ」**　をクリックします
+#. **Miscellaneous Options「その他のオプション」、**Email Alerts「電子メールアラート」** 、および **SNMP Alerts「SNMPアラート」** ページで **Next「次へ」** をクリックします
 
-#. **Confirmation 「確認」** 画面で構成を確認し、**Finish 「完了」**をクリックします
+#. **Confirmation 「確認」** 画面で構成を確認し、**Finish 「完了」** をクリックします
 
    .. figure:: images/cloud14.png
 
@@ -576,7 +576,7 @@ Nutanix ObjectsのクライアントIPと認証情報を取得する
 
 ジョブが作成されたら、複製を開始するためにジョブを開始する必要があります
 
-#. **PMC Web Interface「PMC Webインターフェイス」** で、新しく作成したジョブを右クリックし、**Start「開始」**を選択します
+#. **PMC Web Interface「PMC Webインターフェイス」** で、新しく作成したジョブを右クリックし、**Start「開始」** を選択します
 
    .. figure:: images/cloud15.png
 
@@ -627,7 +627,7 @@ Nutanix ObjectsのクライアントIPと認証情報を取得する
 
    .. figure:: images/buckets_08.png
 
-#. **Always Trust「常に信頼する」**　チェックボックスをオンにして、**The certificate is not valid「証明書が無効です」** ダイアログボックスで　**Continue「続行」**をクリックします
+#. **Always Trust「常に信頼する」**　チェックボックスをオンにして、**The certificate is not valid「証明書が無効です」** ダイアログボックスで　**Continue「続行」** をクリックします
 
    .. figure:: images/invalid_certificate.png
 
@@ -702,7 +702,7 @@ Nutanix ObjectsのクライアントIPと認証情報を取得する
 
    .. figure:: images/fsa4.png
 
-     ファイルサーバーで使用可能な共有を検出する場合は、**Search「検索」** ボタンをクリックしてファイルサーバーの名前を入力します。ダイアログ内を右クリックして **Check All「すべてチェック」**を選択し、検出されたすべての共有を自動的に追加することもできます
+     ファイルサーバーで使用可能な共有を検出する場合は、**Search「検索」** ボタンをクリックしてファイルサーバーの名前を入力します。ダイアログ内を右クリックして **Check All「すべてチェック」** を選択し、検出されたすべての共有を自動的に追加することもできます
 
    .. figure:: images/fsa4a.png
 
