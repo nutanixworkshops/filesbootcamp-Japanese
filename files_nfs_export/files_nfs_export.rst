@@ -19,11 +19,11 @@ NFSプロトコルを有効にする
 
    NFSプロトコルの有効化は、ファイルサーバーごとに1回だけ実行する必要があり、環境内ですでに完了している場合があります。 NFSがすでに有効になっている場合は、「ユーザーマッピングの構成」に進みます
 
-#. **Prism Element > File Server 「ファイルサーバーでファイルサーバー」 ** を選択し、**Protocol Management> Directory Services** をクリックします
+#. **Prism Element > File Server 「ファイルサーバーでファイルサーバー」** を選択し、 **Protocol Management> Directory Services** をクリックします
 
    .. figure:: images/29.png
 
-#. 管理されていないユーザー管理と認証で** (Use NFS Protocol) NFSプロトコル ** を使用を選択し、**Update「更新」** をクリックします
+#. 管理されていないユーザー管理と認証で **(Use NFS Protocol) NFSプロトコル** を使用を選択し、 **Update「更新」** をクリックします
 
    .. figure:: images/30.png
 

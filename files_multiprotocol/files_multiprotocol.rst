@@ -16,11 +16,11 @@ Nutanix Files共有には、ネイティブプロトコルと非ネイティブ�
 すべての権限は、ネイティブプロトコルを使用して適用されます。 非ネイティブプロトコルを使用するアクセス要求には、ネイティブ側から適用される権限へのユーザーまたはグループのマッピングが必要です
 ルールベースのマッピング、明示的なマッピング、デフォルトのマッピングなど、ユーザーとグループのマッピングを適用する方法はいくつかあります。 最初にデフォルトのマッピングを設定します
 
-#. **Prism** で > **File Server「ファイルサーバ」** > file server 「ファイルサーバー」を選択し、 **Protocol Management「プロトコル管理」** をクリックして、**User Mapping「ユーザーマッピング」をクリックします
+#. **Prism** で > **File Server「ファイルサーバ」** > file server 「ファイルサーバー」を選択し、 **Protocol Management「プロトコル管理」** をクリックして、**User Mapping「ユーザーマッピング」** をクリックします
 
    .. figure:: images/53.png
 
-#. **User Mapping「ユーザーマッピング」** ダイアログで **Default Mapping「デフォルトのマッピング」** ページが表示されるまで、**Next「次へ」** を少なくとも2回クリックします
+#. **User Mapping「ユーザーマッピング」** ダイアログで **Default Mapping「デフォルトのマッピング」** ページが表示されるまで、**Next「次へ」** をクリックします
 
 
 #. **Default Mapping「デフォルトのマッピング」** mapping「マッピング」が見つからない場合のデフォルトとして、**Deny access to NFS export「NFSエクスポートへのアクセスを拒否」** と **Deny access to SMB share「SMB共有へのアクセスを拒否」**　の両方を選択します
@@ -66,7 +66,7 @@ Nutanix Files共有には、ネイティブプロトコルと非ネイティブ�
        uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
        [root@CentOS ~]#
 
-#. **Prism** で> **File Server「ファイルサーバー」** > ファイルサーバーを選択し、**Protocol Management 「プロトコル管理」** をクリックし、次に**User Mapping 「ユーザーマッピング」** をクリックします
+#. **Prism** で> **File Server「ファイルサーバー」** > ファイルサーバーを選択し、 **Protocol Management 「プロトコル管理」** をクリックし、次に **User Mapping 「ユーザーマッピング」** をクリックします
 
 #. 明示的なマッピングページが表示されるまで **Next「次へ」** をクリックします
 
