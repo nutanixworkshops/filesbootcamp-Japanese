@@ -1,132 +1,131 @@
 .. _files_smb_share:
 
-----------------------------
-Files: Create SMB Share
-----------------------------
+-----------------
+Files:SMB共有の作成
+-----------------
 
-Overview
-++++++++
+概要
+++++
 
-In this exercise you will create and test a SMB share, used to support home directories, user profiles, and other unstructured file data such as departmental shares commonly accessed by Windows clients.
+この演習では、SMB共有を作成し、テストします。
+これは、ホームディレクトリ、ユーザープロファイル、およびWindowsクライアントが一般的にアクセスする部門別共有など、他の非構造化ファイルデータをサポートするために使用されます。
 
-Lab Setup
-+++++++++
+ラボのセットアップ
++++++++++++++++
 
-This lab requires applications provisioned as part of the :ref:`windows_tools_vm`.
+このラボでは、:ref:`windows_tools_vm` にプロビジョニングされたアプリケーションが必要です
 
-If you have not yet deployed this VM, see the linked steps before proceeding with the lab.
+ラボに進む前に、上記リンクを参照して作成し、以下の手順を実行してください。
 
-#. While waiting for the file server deployment, if you have not already done so deploy the Windows Tools VM.
+#. RDPまたはコンソールを介してWindows Tools VMに接続します
 
-#. Connect to the Windows Tools VM via RDP or console
-
-#. Download the sample files for File Analytics to the Tools VM:
+#. ファイル分析のサンプルファイルをTools VMにダウンロードします:
 
    - `https://peerresources.blob.core.windows.net/sample-data/SampleData_Small.zip <https://peerresources.blob.core.windows.net/sample-data/SampleData_Small.zip>`_
 
-Using SMB Shares
-++++++++++++++++
+SMB共有の使用
+++++++++++++
 
-Creating the Share
-..................
+共有を作成する
+............
 
-#. In **Prism > File Server**, click **+ Share/Export**.
+#. **Prism> ファイルサーバー** で **Share / Export** をクリックします
 
-#. Fill out the following fields:
+#. 次のフィールドに入力します:
 
-   - **Name** - Marketing
-   - **Description (Optional)** - Departmental share for marketing team
+   - **Name「名前」** - Marketing
+   - **Description (Optional)「説明（オプション)」** - Departmental share for marketing team
    - **File Server** - BootcampFS
-   - **Share Path (Optional)** - Leave blank. This field allows you to specify an existing path in which to create the nested share.
-   - **Max Size (Optional)** - Leave blank. This field allows you to set a hard quota for the individual share.
-   - **Select Protocol** - SMB
+   - **Share Path (Optional)「共有パス（オプション)」** -　空白のままにします。このフィールドでは、ネストされた共有を作成する既存のパスを指定できます
+   - **Max Size (Optional)「最大サイズ（オプション）」** - 空白のままにします。このフィールドでは、個々の共有にハードクォータを設定できます
+   - **Select Protocol　「プロトコルの選択」** - SMB
 
    .. figure:: images/14.png
 
-#. Click **Next**.
+#. **Next** をクリックします.
 
-#. Select **Enable Access Based Enumeration** and **Self Service Restore**.
+#. **Enable Access Based Enumeration「アクセスベースの列挙」** と **Self Service Restore「セルフサービスの復元を有効にする」**　を選択します
 
    .. figure:: images/15.png
 
-   As you are creating a departmental share, it should be created as a **Standard** share. This means that all top level directories and files within the share, as well as connections to the share, are served from a single Files VM.
+   部門別の共有を作成するときは、 **標準** 共有として作成するのが適切です。 **標準** 共有では、共有内のすべての最上位のディレクトリとファイル、および共有への接続が、単一のFiles VMから提供されます。
 
-   **Distributed** shares are appropriate for home directories, user profiles, and application folders. This type of share shards top level directories across all Files VMs and load balances connections across all Files VMs within the Files cluster.
+   **Distributed「分散共有」** はホームディレクトリ、ユーザープロファイル、およびアプリケーションフォルダーに適しています。 **分散** 共有は、すべてのFiles VM間で最上位のディレクトリを分割し、ディレクトリアクセスはFilesクラスター内のFiles VMにロードバランスされます。
 
-   **Access Based Enumeration (ABE)** ensures that only files and folders which a given user has read access are visible to that user. This is commonly enabled for Windows file shares.
+   **Access Based Enumeration (ABE)「アクセスベースの列挙」** は、ユーザーには読み取りアクセス権を持つファイルとフォルダーのみが表示されるようにします。 これは通常、Windowsファイル共有で有効です
 
-   **Self Service Restore** allows users to leverage Windows Previous Version to easily restore individual files to previous revisions based on Nutanix snapshots.
+   **Self Service Restore　「セルフサービスリストア」** ユーザーはWindowsの[以前のバージョン]を活用して、Nutanixスナップショットに基づいて個々のファイルを以前のリビジョンに簡単に復元できます
 
-#. Click **Next**.
+#. **次へ** をクリックします
 
-#. Review the **Summary** and click **Create**.
+#. **Summary「概要」** を確認し、**Create「作成」**　 をクリックします
 
    .. figure:: images/16.png
 
-Testing the Share
-.................
+   共有のテスト
+   ..........
 
-#. Connect to your *Initials*\ **-ToolsVM** via RDP or console.
+#. RDPまたはコンソールを介して *Initials*\ **-ToolsVM** に接続します
 
    .. note::
 
-     The Tools VM has already been joined to the **NTNXLAB.local** domain. You could use any domain joined VM to complete the following steps.
+     Tools VMはすでに **NTNXLAB.local** ドメインに参加しています。 ドメインに参加しているVMを使用して、次の手順を実行できます
 
-#. Open ``\\BootcampFS.ntnxlab.local\`` in **File Explorer**.
+#. **ファイルエクスプローラー** で ``\\BootcampFS.ntnxlab.local\`` を開きます.
 
    .. figure:: images/17.png
 
-#. Test accessing the Marketing share by extracting the SampleData_Small.zip files downloaded in the previous step into the share.
+#. 前の手順でダウンロードした **SampleData_Small.zip** ファイルを共有に展開して、マーケティング共有へのアクセスをテストします
 
    .. figure:: images/18.png
 
-   - The **NTNXLAB\\Administrator** user was specified as a Files Administrator during deployment of the Files cluster, giving it read/write access to all shares by default.
-   - Managing access for other users is no different than any other SMB share.
+   - The **NTNXLAB\\Administrator** ユーザーは、Filesクラスターの展開中にファイル管理者として指定され、デフォルトですべての共有への読み取り/書き込みアクセス権を付与しました
+   - 他のユーザーのアクセス管理は、他のSMB共有と同じです
 
-#. Right-click **Marketing > Properties**.
+#. **Marketing > Properties** を右クリックします
 
-#. Select the **Security** tab and click **Advanced**.
+#. **Security「セキュリティ」** タブを選択し、 **Advanced「詳細」** をクリックします
 
    .. figure:: images/19.png
 
-#. Select **Users (BootcampFS\\Users)** and click **Remove**.
+#. **Users「ユーザー」（BootcampFS\\Users)** を選択し、**削除** をクリックします
 
-#. Click **Add**.
+#.  **Add 「追加」** をクリックします
 
-#. Click **Select a principal** and specify **Everyone** in the **Object Name** field. Click **OK**.
+#. **Select a principal「プリンシパルを選択」** をクリックし、**Object Name「オブジェクト名」** フィールドに **Everyone** を指定します。 **OK** をクリックします
 
    .. figure:: images/20.png
 
-#. Fill out the following fields and click **OK**:
+#. 以下をフィールドに入力して、**OK** をクリックします
 
-   - **Type** - Allow
-   - **Applies to** - This folder only
-   - Select **Read & execute**
-   - Select **List folder contents**
-   - Select **Read**
-   - Select **Write**
+   - **Type「タイプ」** - Allow「許可」
+   - **Applies to「適用先」** - This folder only　「このフォルダのみ」
+   - **Read & execute「読み取りと実行」**　を選択します
+   - **List folder contents「フォルダコンテンツのリスト」**　を選択
+   - **Read「既読」**　を選択
+   - **Write「書き込み」**　を選択
 
    .. figure:: images/21.png
 
-#. Click **OK > OK > OK** to save the permission changes.
+#. **OK**> **OK**> **OK** をクリックして、権限の変更を保存します
 
-   All users will now be able to create folders and files within the Marketing share.
+　　これで、すべてのユーザーがMarketing共有内にフォルダーとファイルを作成できるようになります
 
-   It is common for shares utilized by many people to leverage quotas to ensure fair use of resources. Files offers the ability to set either soft or hard quotas on a per share basis for either individual users within Active Directory, or specific Active Directory Security Groups.
+　　多くの人々が利用するシェアでは、リソースの公平な使用を確保するためにクォータを活用するのが一般的です。 Filesは、Active Directory内の個々のユーザー、または特定のActive Directoryセキュリティグループに対して、共有ごとにソフトまたはハードクォータを設定する機能を提供します
 
-#. In **Prism > File Server > Share > Marketing**, click **+ Add Quota Policy**.
+#. **Prism > File Server 「ファイルサーバー」> Share > Marketing**, で、**+ Add Quota Policy** をクリックします
 
-#. Fill out the following fields and click **Save**:
+#. 次のフィールドに入力して、**Save「保存」** をクリックします:
 
-   - Select **Group**
-   - **User or Group** - SSP Developers
-   - **Quota** - 10 GiB
-   - **Enforcement Type** - Hard Limit
+   - **Group「グループ」**　を選択
+   - **User or Group「ユーザーまたはグループ」** - SSP Developers
+   - **Quota「割り当」** で- 10 GiB
+   - **Enforcement Type「施行タイプ」** - Hard Limit「ハード制限」
 
    .. figure:: images/22.png
 
-#. Click **Save**.
+#. **Save「保存」**　をクリックします
 
-#. With the Marketing share still selected, review the **Share Details**, **Usage** and **Performance** tabs to understand the available on a per share basis, including the number of files & connections, storage utilization over time, latency, throughput, and IOPS.
+#. Marketing 「マーケティング」共有を選択した状態で、 **Share Details「共有の詳細」**, **Usage「使用状況」** and **Performance「パフォーマンス」** の各タブを確認して、共有ごとに利用可能なファイルと接続の数、時間経過によるストレージ使用率、レイテンシ、スループット、IOPSを確認します。
 
    .. figure:: images/23.png

@@ -51,91 +51,94 @@
 .. _getting_started:
 
 ---------------
-Getting Started
+さぁ、はじめましょう Files Bootcamp
 ---------------
 
-Welcome to the Nutanix Files Bootcamp!
-
-This workbook accompanies an instructor-led session that introduces Nutanix Era and many common management tasks. Each section has a lesson and an exercise to give you hands-on practice. The instructor explains the exercises and answers any additional questions that you may have.
-
-Traditionally, file storage has been yet another silo within IT, introducing unnecessary complexity and suffering from the same issues of scale and lack of continuous innovation seen in SAN storage. Nutanix believes there is no room for silos in the Enterprise Cloud. By approaching file storage as an app, running in software on top of a proven HCI core, Nutanix Files  delivers high performance, scalability, and rapid innovation through One Click management.
-
-**In this lab you will step through managaging SMB shares and NFS exports, scale out the environment, and explore upcoming Files features. The lab will provide key considerations around deployment, configuration, and use cases.**
+Nutanix Files Bootcamp へようこそ！
+このワークブックには、Nutanix Files と多くの一般的な管理タスクを紹介する、インストラクター主導のセッションが含まれています。
+各セクションには、実践的な演習を行うためのレッスンと演習があります。
+インストラクターが演習を説明し、あなたが持つかもしれない追加の質問に答えます。
+従来、ファイルストレージはITインフラにおける1つの[サイロ]であり、不必要な複雑さをもたらし、SAN ストレージによく見られるスケーラビリティと継続的な革新の欠如と同じ問題に悩まされています。
+Nutanix は、Enterprise Cloud には[サイロ]の余地はないと考えています。
+Nutanix Files は、ファイルストレージをアプリとしてアプローチし、実績のあるHCIコア上でソフトウェアを実行することにより、1-Click による高いパフォーマンス、スケーラビリティ、迅速なイノベーションを実現します。
+このラボでは、SMB 共有とNFSエクスポートを管理する手順を実行し、この環境をスケールアウトし、ファイル機能を使って探索をします。
+またこのラボでは、展開、構成、およびユースケースに関する重要な考慮事項について説明します。
 
 What's New
 ++++++++++
 
-- Workshop updated for the following software versions:
+- このワークショップは次のソフトウェアバージョンに更新されています：
     - AOS & PC 5.11.2.x
     - Files 3.6.1.2
     - File Analytics 2.1.0
 
-- Optional Lab Updates:
+- オプショナルラボの更新:
 
-Agenda
-++++++
+アジェンダ
+++++++++
 
-- Nutanix Files Labs
-    - Files: Create SMB Share
-    - Files: Create NFS Export
-    - Files: Selective File Blocking
-    - File Analytics: Review Initial Scan
-    - File Analytics: Anomaly Rules
+- Nutanix Files ラボ
+    - Files: SMB共有の作成
+    - Files: NFSエクスポートの作成
+    - Files: 選択的なファイルブロッキング
+    - File Analytics: 初期スキャンの確認
+    - File Analytics: 異常ルール
 
-- Bonus Labs
-    - Peer
+- ボーナスラボ
+    - Peer Software
 
-- Optional Labs
-    - Files: Deploy
-    - Files: Expand Cluster
-    - File Analytics: Deploy
+- オプショナルラボ
+    - Files: デプロイ
+    - Files: クラスター拡張
+    - File Analytics: デプロイ
 
-Introductions
+はじめに
++++++++
+
+- 名前
+- Nutanixの知識
+
+初期設定
++++++++
+
+- 使用されている*パスワード*をメモします
+- 仮想デスクトップにログインします（接続情報は以下にあります）
+
+環境の詳細
++++++++++
+
+- Nutanixワークショップは、Nutanix Hosted POC環境で実行することを目的としています
+- 演習を完了するために必要なすべての必要なイメージ、ネットワーク、VMがクラスターにプロビジョニングされてます
+
+ネットワーキング
 +++++++++++++
 
-- Name
-- Familiarity with Nutanix
+ホストされたPOCクラスターは、標準の命名規則に従います:
 
-Initial Setup
-+++++++++++++
+- **クラスター名** - POC\ *XYZ*
+- **サブネット** - 10.**21**.\ *XYZ*\ .0
+- **クラスターIP** - 10.**21**.\ *XYZ*\ .37
 
-- Take note of the *Passwords* being used.
-- Log into your virtual desktops (connection info below)
+マーケティングプールからプロビジョニングされた場合:
 
-Environment Details
-+++++++++++++++++++
+- **クラスター名** - MKT\ *XYZ*
+- **サブネット** - 10.**20**.\ *XYZ*\ .0
+- **クラスターIP** - 10.**20**.\ *XYZ*\ .37
 
-Nutanix Workshops are intended to be run in the Nutanix Hosted POC environment. Your cluster will be provisioned with all necessary images, networks, and VMs required to complete the exercises.
+例:
 
-Networking
-..........
+- **クラスター名** - POC055
+- **サブネット** - 10.21.55.0
+- **クラスターIP** - 10.21.55.37
 
-Hosted POC clusters follow a standard naming convention:
-
-- **Cluster Name** - POC\ *XYZ*
-- **Subnet** - 10.**21**.\ *XYZ*\ .0
-- **Cluster IP** - 10.**21**.\ *XYZ*\ .37
-
-If provisioned from the marketing pool:
-
-- **Cluster Name** - MKT\ *XYZ*
-- **Subnet** - 10.**20**.\ *XYZ*\ .0
-- **Cluster IP** - 10.**20**.\ *XYZ*\ .37
-
-For example:
-
-- **Cluster Name** - POC055
-- **Subnet** - 10.21.55.0
-- **Cluster IP** - 10.21.55.37
-
-Throughout the Workshop there are multiple instances where you will need to substitute *XYZ* with the correct octet for your subnet, for example:
+ワークショップ全体を通して、XYZをサブネットの正しいオクテットに置き換える必要がある複数のインスタンスがあります。次に例を示します
 
 .. list-table::
    :widths: 25 75
    :header-rows: 1
 
-   * - IP Address
-     - Description
+   * - IP アドレス
+     - 解説
    * - 10.21.\ *XYZ*\ .37
      - Nutanix Cluster Virtual IP
    * - 10.21.\ *XYZ*\ .39
@@ -143,14 +146,14 @@ Throughout the Workshop there are multiple instances where you will need to subs
    * - 10.21.\ *XYZ*\ .40
      - **DC** VM IP, NTNXLAB.local Domain Controller
 
-Each cluster is configured with 2 VLANs which can be used for VMs:
+各クラスターは、VMに使用できる2つのVLANで構成されています:
 
 .. list-table::
   :widths: 25 25 10 40
   :header-rows: 1
 
-  * - Network Name
-    - Address
+  * - ネットワーキング 名
+    - ネットワーキング アトレス
     - VLAN
     - DHCP Scope
   * - Primary
@@ -162,20 +165,20 @@ Each cluster is configured with 2 VLANs which can be used for VMs:
     - *XYZ1*
     - 10.21.\ *XYZ*\ .132-10.21.\ *XYZ*\ .253
 
-Credentials
-...........
+クレデンシャル
+............
 
-.. note::
+.. 注意::
 
-  The *<Cluster Password>* is unique to each cluster and will be provided by the leader of the Workshop.
+  *<クラスタパスワード>*は各クラスタ固有であり、ワークショップのリーダーによって提供されます。
 
 .. list-table::
    :widths: 25 35 40
    :header-rows: 1
 
-   * - Credential
-     - Username
-     - Password
+   * - クレデンシャル
+     - ユーザー名
+     - パスワード
    * - Prism Element
      - admin
      - *<Cluster Password>*
@@ -189,15 +192,16 @@ Credentials
      - nutanix
      - *<Cluster Password>*
 
-Each cluster has a dedicated domain controller VM, **DC**, responsible for providing AD services for the **NTNXLAB.local** domain. The domain is populated with the following Users and Groups:
+各クラスターには専用ドメインコントローラーVM・DCがあり、NTNXLAB.localドメインにADサービスを提供します。
+ドメインには、次のユーザーとグループが用意されています。
 
 .. list-table::
    :widths: 25 35 40
    :header-rows: 1
-   
-   * - Group
-     - Username(s)
-     - Password
+
+   * - グループ
+     - ユーザー名
+     - パスワード
    * - Administrators
      - Administrator
      - nutanix/4u
@@ -220,70 +224,70 @@ Each cluster has a dedicated domain controller VM, **DC**, responsible for provi
      - user01-user25
      - nutanix/4u
 
-Access Instructions
-+++++++++++++++++++
+アクセス手順
+++++++++++
 
-The Nutanix Hosted POC environment can be accessed a number of different ways:
+Nutanixホスト型POC環境には、さまざまな方法でアクセスできます:
 
-Lab Access User Credentials
-...........................
+ラボアクセスユーザー認証情報
+.......................
 
-PHX Based Clusters:
-**Username:** PHX-POCxxx-User01 (up to PHX-POCxxx-User20), **Password:** *<Provided by Instructor>*
+PHXベースのクラスター:
+**ユーザー名:** PHX-POCxxx-User01 (up to PHX-POCxxx-User20), **パスワード:** *<インストラクターが提供>*
 
-RTP Based Clusters:
-**Username:** RTP-POCxxx-User01 (up to RTP-POCxxx-User20), **Password:** *<Provided by Instructor>*
+RTPベースのクラスター:
+**ユーザー名:** RTP-POCxxx-User01 (up to RTP-POCxxx-User20), **パスワード:** *<インストラクターが提供>*
 
 Frame VDI
 .........
 
-Login to: https://frame.nutanix.com/x/labs
+ログイン: https://frame.nutanix.com/x/labs
 
-**Nutanix Employees** - Use your **NUTANIXDC** credentials
-**Non-Employees** - Use **Lab Access User** Credentials
+- **Nutanix社員** - **NUTANIXDC**　資格情報を使用します
+- **非従業員** - **ラボアクセスユーザー**　資格情報を使用します
 
 Parallels VDI
 .................
 
-PHX Based Clusters Login to: https://xld-uswest1.nutanix.com
+PHXベースのクラスターログイン: https://xld-uswest1.nutanix.com
 
-RTP Based Clusters Login to: https://xld-useast1.nutanix.com
+RTPベースのクラスターログイン: https://xld-useast1.nutanix.com
 
-**Nutanix Employees** - Use your **NUTANIXDC** credentials
-**Non-Employees** - Use **Lab Access User** Credentials
+- **Nutanix社員** - **NUTANIXDC**　資格情報を使用します
+- **非従業員** - **ラボアクセスユーザー**　資格情報を使用します
 
 Employee Pulse Secure VPN
 ..........................
 
-Download the client:
+クライアントをダウンロードします:
 
-PHX Based Clusters Login to: https://xld-uswest1.nutanix.com
+PHXベースのクラスターログイン: https://xld-uswest1.nutanix.com
 
-RTP Based Clusters Login to: https://xld-useast1.nutanix.com
+RTPベースのクラスターログイン: https://xld-useast1.nutanix.com
 
-**Nutanix Employees** - Use your **NUTANIXDC** credentials
-**Non-Employees** - Use **Lab Access User** Credentials
+- **Nutanix社員** - **NUTANIXDC**　資格情報を使用します
+- **非従業員** - **ラボアクセスユーザー**　資格情報を使用します
 
-Install the client.
+クライアントを設定します.
 
-In Pulse Secure Client, **Add** a connection:
+Pulse Secure Clientで、接続を**追加**します:
 
-For PHX:
+PHXの場合:
 
-- **Type** - Policy Secure (UAC) or Connection Server
-- **Name** - X-Labs - PHX
-- **Server URL** - xlv-uswest1.nutanix.com
+- **タイプ** - ポリシー保護（UAC）または接続サーバー
+- **名前** - X-Labs - PHX
+- **サーバーのURL** - xlv-uswest1.nutanix.com
 
-For RTP:
+RTPの場合:
 
-- **Type** - Policy Secure (UAC) or Connection Server
-- **Name** - X-Labs - RTP
-- **Server URL** - xlv-useast1.nutanix.com
+- **タイプ** - Policy Secure (UAC) or Connection Server
+- **名前** - X-Labs - RTP
+- **サーバーのURL** - xlv-useast1.nutanix.com
 
 
-Nutanix Version Info
-++++++++++++++++++++
+Nutanixバージョン情報
++++++++++++++++++++
 
-- **AHV Version** - AHV 20170830.337
-- **AOS Version** - 5.11.2.3
-- **PC Version** - 5.11.2.1
+- **AHV バージョン** - AHV 20170830.337
+- **AOS バージョン** - 5.11.2.3
+- **PC バージョン** - 5.11.2.1

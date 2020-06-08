@@ -1,101 +1,101 @@
 .. _files_nfs_export:
 
-------------------------
-Files: Create NFS Export
-------------------------
+-------------------------
+Files:NFSエクスポートの作成
+-------------------------
 
-Overview
-++++++++
+概要
+++++
 
-In this exercise you will create and test a NFSv4 export, used to support clustered applications, store application data such as logging, or storing other unstructured file data commonly accessed by Linux clients.
+この演習では、クラスター化されたアプリケーションのサポート、ロギングなどのアプリケーションデータの格納、またはLinuxクライアントが一般的にアクセスする他の非構造化ファイルデータの格納に使用されるNFSv4エクスポートを作成およびテストします。
 
-Using NFS Exports
+NFSエクスポートの使用
 +++++++++++++++++
 
-Enabling NFS Protocol
+NFSプロトコルを有効にする
 .....................
 
 .. note::
 
-   Enabling NFS protocol only needs to be performed once per Files server, and may have already been completed in your environment. If NFS is already enabled, proceed to `Configure User Mappings`_.
+   NFSプロトコルの有効化は、ファイルサーバーごとに1回だけ実行する必要があり、環境内ですでに完了している場合があります。 NFSがすでに有効になっている場合は、「ユーザーマッピングの構成」に進みます
 
-#. In **Prism Element > File Server**, select your file server and click **Protocol Management > Directory Services**.
+#. **Prism Element > File Server 「ファイルサーバーでファイルサーバー」** を選択し、 **Protocol Management> Directory Services** をクリックします
 
    .. figure:: images/29.png
 
-#. Select **Use NFS Protocol** with **Unmanaged** User Management and Authentication, and click **Update**.
+#. 管理されていないユーザー管理と認証で **(Use NFS Protocol) NFSプロトコル** を使用を選択し、 **Update「更新」** をクリックします
 
    .. figure:: images/30.png
 
-Creating the Export
-...................
+エクスポートの作成
+...............
 
-#. In **Prism > File Server**, click **+ Share/Export**.
+#. **Prism > 「ファイルサーバー」File Server** で、**+ Share / Export** をクリックします
 
-#. Fill out the following fields:
+#. 次のフィールドに入力しますs:
 
-   - **Name** - logs
-   - **Description (Optional)** - File share for system logs
-   - **File Server** - BootcampFS
-   - **Share Path (Optional)** - Leave blank
-   - **Max Size (Optional)** - Leave blank
-   - **Select Protocol** - NFS
+   - **Name「名前」** - logs
+   - **Description (Optional)「説明（オプション)」** - File share for system logs
+   - **File Server「ファイルサーバ」** - BootcampFS
+   - **Share Path (Optional)「共有パス（オプション)」** - 空白のままにします
+   - **Max Size (Optional) 「最大サイズ（オプション)」** - 空白のままにします
+   - **Select Protocol「プロトコルの選択」** - NFS
 
    .. figure:: images/24.png
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-#. Fill out the following fields:
+#. 次のフィールドに入力します:
 
-   - Select **Enable Self Service Restore**
-      - These snapshots appear as a .snapshot directory for NFS clients.
-   - **Authentication** - System
-   - **Default Access (For All Clients)** - No Access
-   - Select **+ Add exceptions**
-   - **Clients with Read-Write Access** - *The first 3 octets of your cluster network*\ .* (e.g. 10.38.1.\*)
-
+   - **Enable Self Service Restore 「セルフサービスリストア」** を有効にするを選択します
+      - これらのスナップショットは、NFSクライアントの.snapshotディレクトリとして表示されます
+   - **Authentication「認証」** - System
+   - **Default Access (For All Clients) 「デフォルトのアクセス（すべてのクライアント用)」** - No Access「認証」
+   - **+ Add exceptions**
+   - **「読み取り/書き込みアクセス権を持つ** - *クライアント-クラスターネットワークの最初の3オクテット*\ .*（例10.38.1\.*）
    .. figure:: images/25.png
 
-   By default an NFS export will allow read/write access to any host that mounts the export, but this can be restricted to specific IPs or IP ranges.
+   デフォルトでは、NFSエクスポートは、エクスポートをマウントするすべてのホストへの読み取り/書き込みアクセスを許可しますが、これは特定のIPまたはIP範囲に制限できます
 
-#. Click **Next**.
+#. **Next「次へ」** をクリックします
 
-#. Review the **Summary** and click **Create**.
+#. **Summary「概要」** を確認し、**Create「作成」**　をクリックします
 
-Testing the Export
-..................
+エクスポートのテスト
+.................
 
-You will first provision a CentOS VM to use as a client for your Files export.
+最初に、:ref:`linux_tools_vm` をプロビジョニングして、ファイルエクスポートのクライアントとして使用します
 
-.. note:: If you have already deployed the :ref:`linux_tools_vm` as part of another lab, you may use this VM as your NFS client instead.
+.. note::
+ 注意: :ref:`linux_tools_vm` を別のラボの一部としてすでに展開している場合は、代わりにこのVMをNFSクライアントとして使用できます
 
-#. In **Prism > VM > Table**, click **+ Create VM**.
+#. **Prism > VM > Table**, **+ Create VM「VMの作成」** をクリックします
 
-#. Fill out the following fields:
+#. 次のフィールドに入力します:
 
-   - **Name** - *Initials*\ -NFS-Client
-   - **Description** - CentOS VM for testing Files NFS export
+   - **Name「名前」** - *イニシャル*\ -NFS-Client
+   - **Description「説明」** - ファイルNFSエクスポートをテストするためのCentOS VM
    - **vCPU(s)** - 2
-   - **Number of Cores per vCPU** - 1
-   - **Memory** - 2 GiB
-   - Select **+ Add New Disk**
-      - **Operation** - Clone from Image Service
-      - **Image** - CentOS
-      - Select **Add**
-   - Select **Add New NIC**
-      - **VLAN Name** - Secondary
-      - Select **Add**
+   - **Number of Cores per vCPU「vCPUあたりのコア数」** - 1
+   - **Memory「メモリ」** - 2 GiB
+   - **Add New Disk「新しいディスクを追加** を選択します
+      - **Operation「操作」** - Clone from Image Service「イメージサービスからのクローン」
+      - **Image「画像」** - CentOS
+      - **Add「追加」**　を選択
+   - Select **Add New NIC「新しいNICの追加」**　を選択します
+      - **VLAN Name「名」** - Secondary
+      - **Add「追加」**　を選択
 
-#. Click **Save**.
+#. **Save「保存」** をクリックします
 
-#. Select the *Initials*\ **-NFS-Client** VM and click **Power on**.
+#. **Initials-NFS-Client「イニシャル-NFS-Client」** を選択し、**Power on**　をクリックします。
 
-#. Note the IP address of the VM in Prism, and connect via SSH using the following credentials:
+#. PrismでVMのIPアドレスをメモし、次の資格情報を使用してSSH経由で接続します:
 
-   - **Username** - root
-   - **Password** - nutanix/4u
+   - **Username「ユーザー名-ルート」** - root
+   - **Password「パスワード-」** - nutanix/4u
 
-#. Execute the following:
+#. 以下を実行します:
 
      .. code-block:: bash
 
@@ -116,21 +116,21 @@ You will first provision a CentOS VM to use as a client for your Files export.
        total 1
        drwxrwxrwx. 2 root root 2 Mar  9 18:53 logs
 
-#. Observe that the **logs** directory is mounted in ``/filesmnt/logs``.
+#. logsディレクトリが ``/filesmnt/logs`` にマウントされていることを確認します
 
-#. Reboot the VM and observe the export is no longer mounted. To persist the mount, add it to ``/etc/fstab`` by executing the following:
+#. VMを再起動し、エクスポートがマウントされていないことを確認します。 マウントを永続化するには、次のコマンドを実行して、マウントを ``/etc/fstab`` に追加します。
 
      .. code-block:: bash
 
        echo 'BootcampFS.ntnxlab.local:/ /filesmnt nfs4' >> /etc/fstab
 
-#. The following command will add 100 2MB files filled with random data to ``/filesmnt/logs``:
+#. 次のコマンドは、ランダムデータで満たされた100 MBの2MBファイルを ``/filesmnt/logs`` に追加します:
 
      .. code-block:: bash
 
        mkdir /filesmnt/logs/host1
        for i in {1..100}; do dd if=/dev/urandom bs=8k count=256 of=/filesmnt/logs/host1/file$i; done
 
-#. Return to **Prism > File Server > Share > logs** to monitor performance and usage.
+#. Return to **Prism > File Server「ファイルサーバ」> Share > logs「ログ」** に戻り、パフォーマンスと使用状況を監視します
 
-   Note that the utilization data is updated every 10 minutes.
+   使用率データは10分ごとに更新されるので注意してください

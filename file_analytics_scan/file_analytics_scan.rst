@@ -1,44 +1,46 @@
 .. _file_analytics_scan:
 
---------------------------------
-File Analytics: File System Scan
---------------------------------
+-------------------------------------------------------------------
+File Analytics: File System Scan 「ファイル分析：ファイルシステムスキャン」
+-------------------------------------------------------------------
 
-Overview
+概要
 ++++++++
 
 
 
-File Analytics Scan
-+++++++++++++++++++++
+ファイル分析スキャン
+++++++++++++++++++
 
-#. Analytics will perform an initial scan of the existing shares which will take just a couple minutes.  You can see the scan by going to the gear icon within the Analytics UI and selecting **Scan File System**
+#. Analytics（分析）は既存の共有の初期スキャンを実行します。これには数分しかかかりません。アナリティクスUI内の歯車のアイコンに移動して **Scan File System 「ファイルシステムのスキャン」** を選択すると、スキャンを表示できます
 
    .. figure:: images/35.png
 
-#. Choose **Cancel** to exit the scan details window
+#. **Cancel「キャンセル」** を選択して、スキャンの詳細ウィンドウを終了します
 
-#. After viewing the scan details, refresh your browser.  You should see the **Data Age**, **File Distribution by Size** and **File Distribution by Type** dashboard panels update.
+#. スキャンの詳細を確認した後、ブラウザを更新します。**Data Age 「データエージ」** 、**File Distribution by Size 「サイズ別のファイル分布」** 、**File Distribution by Type　「タイプ別のファイル分布」** のダッシュボードパネルが更新されます
 
    .. figure:: images/36.png
 
-#. Create some audit trail activity by going to the marketing share and opening one of the word files under **Sample Data** > **Documents**
+#. Marketing Shareに移動し、**Sample Data** > **Documents**　の下のWordファイルの1つを開いて、監査証跡アクティビティを作成します
 
-   .. note:: You may need to complete a short wizard for OpenOffice if using that application to open a file.
+   .. note::　
+    注意: そのアプリケーションを使用してファイルを開く場合、
+    OpenOfficeの短いウィザードを完了する必要がある場合があります
 
-#. Refresh the **Dashboard** page in your browser to see the **Top 5 active users**, **Top 5 accessed files** and **File Operations** panels update
+#. ブラウザの **Dashboard 「ダッシュボード」** ページを更新して、**Top 5 active users 「アクティブユーザーのトップ5」** 、**Top 5 accessed files 「アクセスされたファイルのトップ5ファイル」** を確認し、操作パネルの更新を確認します
 
    .. figure:: images/37.png
 
-#. Click on your user under **Top 5 active users**.  This will take you to the audit trail of the user.
+#. **Top 5 active users**　の下にあるユーザーをクリックします。これにより、ユーザーの監査証跡が表示されます。
 
-#. You can also click on the **Audit Trails** menu and search for either your user or a given file.  You can use wildcards for your search, for example **.doc**
+#. **Audit Trails「監査証跡」** メニューをクリックして、ユーザーまたは特定のファイルを検索することもできます。 **.doc** などのワイルドカードを使用して検索できます
 
    .. figure:: images/38.png
 
-Takeaways
-+++++++++
+持ち帰り
++++++++
 
-What are the key things you should know about **Nutanix File Analytics**?
+**Nutanix File Analytics「Nutanix Filesのファイル分析」**　について知っておくべき重要なことは何ですか？
 
-- File Analytics helps you better understand how data is utilized by your organizations to help you meet your data auditing, data access minimization and compliance requirements.
+- ファイル分析は、組織がデータをどのように利用しているかをよりよく理解し、データ監査、データアクセスの最小化、コンプライアンスの要件を満たすのに役立ちます

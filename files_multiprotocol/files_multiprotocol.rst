@@ -1,48 +1,49 @@
 .. _files_multiprotocol:
 
-------------------------
-Files: Multi-Protocol
-------------------------
+---------------------
+Files：マルチプロトコル
+---------------------
 
-Multi-protocol
+マルチプロトコル
 ++++++++++++++
 
-In this exercise you will configure an existing SMB share to also support NFS. Enabling multi-protocol access requires you to configure user mappings and define the native and non-native protocol for a share.
+この演習では、NFSもサポートするように既存のSMB共有を構成します。 マルチプロトコルアクセスを有効にするには、ユーザーマッピングを構成し、共有のネイティブプロトコルと非ネイティブプロトコルを定義する必要があります
 
-Configure User Mappings
-.......................
+ユーザーマッピングの構成
+.....................
 
-A Nutanix Files share has the concept of a native and non-native protocol.  All permissions are applied using the native protocol.
-Any access requests using the non-native protocol requires a user or group mapping to the permission applied from the native side.
-There are several ways to apply user and group mappings including rule based, explicit and default mappings.  You will first configure a default mapping.
+Nutanix Files共有には、ネイティブプロトコルと非ネイティブプロトコルの概念があります
+すべての権限は、ネイティブプロトコルを使用して適用されます。 非ネイティブプロトコルを使用するアクセス要求には、ネイティブ側から適用される権限へのユーザーまたはグループのマッピングが必要です
+ルールベースのマッピング、明示的なマッピング、デフォルトのマッピングなど、ユーザーとグループのマッピングを適用する方法はいくつかあります。 最初にデフォルトのマッピングを設定します
 
-#. In **Prism** > **File Server** > Select your file server and click **Protocol Management** > then click **User Mapping**
+#. **Prism** で > **File Server「ファイルサーバ」** > file server 「ファイルサーバー」を選択し、 **Protocol Management「プロトコル管理」** をクリックして、**User Mapping「ユーザーマッピング」** をクリックします
 
    .. figure:: images/53.png
 
-#. In the **User Mapping** dialog click **Next** at least two times, until you are on the **Default Mapping** page.
+#. **User Mapping「ユーザーマッピング」** ダイアログで **Default Mapping「デフォルトのマッピング」** ページが表示されるまで、**Next「次へ」** をクリックします
 
-#. From the **Default Mapping** page choose both **Deny access to NFS export** and **Deny access to SMB share** as the defaults for when no mapping is found.
+
+#. **Default Mapping「デフォルトのマッピング」** mapping「マッピング」が見つからない場合のデフォルトとして、**Deny access to NFS export「NFSエクスポートへのアクセスを拒否」** と **Deny access to SMB share「SMB共有へのアクセスを拒否」**　の両方を選択します
 
    .. figure:: images/54.png
 
-#. Complete the initial mapping by choosing **Next** and then **Save** on the **Summary** page.
+#. **Next「次へ」**　を選択して初期マッピングを完了し、**Save「概要」** ページで[保存]を選択します。
 
-#. In **Prism** > **File Server** > **Share/Export** > click on the Marketing share and select **Update**.
+#. **Prism** で > **File Server「ファイルサーバー」** > **Share/Export「共有/エクスポート」** > Marketing「マーケティング」共有をクリックし、**Update「更新」** を選択します
 
-#. From the **Basics** page check the box at the bottom which says **Enable multiprotocol access for NFS**.
+#. **Basics 「基本」**　ページで、下部にある **Enable multiprotocol access for NFS「NFSのマルチプロトコルアクセスを有効にする」** チェックボックスをオンにします
 
    .. figure:: images/55.png
 
-#. Click **Next** then from the **Settings* page check **Simultaneous access to the same files from both protocols**.
+#. **Next [次へ]** をクリックし、**Settings「設定」** ページから **Simultaneous access to the same files from both protocols「両方のプロトコルから同じファイルへの同時アクセス」** をチェックします
 
    .. figure:: images/56.png
 
-#. Click **Next** and then **Save** from the **Summary** page.
+#. **Next「次へ」** をクリックし、**Save「概要」** ページから[保存]をクリックします。
 
-#. Connect via SSH to the *Initials*\ -NFS-Client VM.
+#. SSH経由で *Initials*\ -NFS-Client VM に接続します
 
-#. Execute the following commands:
+#. 次のコマンドを実行します:
 
      .. code-block:: bash
 
@@ -52,10 +53,10 @@ There are several ways to apply user and group mappings including rule based, ex
        dir: cannot open directory /filesmulti: Permission denied
        [root@CentOS ~]#
 
-   .. note:: The mount operation is case sensitive.
+   .. 注意:: マウント操作では大文字と小文字が区別されます
 
-Because the default mapping is to deny access the Permission denied error is expected.  You will now add an explicit mapping to allow access to the non-native NFS protocol user.
-We will need to get the user ID (UID) to create the explicit mapping.
+デフォルトのマッピングはアクセス拒否なので、Permission deniedエラーが予想されます。 次に、ネイティブでないNFSプロトコルユーザーへのアクセスを許可する明示的なマッピングを追加します
+明示的なマッピングを作成するには、ユーザーID（UID）を取得する必要があります
 
 #. Execute the following command and take note of the UID:
 
@@ -65,27 +66,27 @@ We will need to get the user ID (UID) to create the explicit mapping.
        uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
        [root@CentOS ~]#
 
-#. In **Prism** > **File Server** > Select your file server and click **Protocol Management** > then click **User Mapping**
+#. **Prism** で> **File Server「ファイルサーバー」** > ファイルサーバーを選択し、 **Protocol Management 「プロトコル管理」** をクリックし、次に **User Mapping 「ユーザーマッピング」** をクリックします
 
-#. Click **Next** until you are on the **Explicit Mapping** page
+#. 明示的なマッピングページが表示されるまで **Next「次へ」** をクリックします
 
-#. Click **+ Add one-to-one mapping**
+#. クリックして、**+ Add one-to-one mapping 「1対1のマッピング」** を追加します
 
-#. Fill out the following fields:
+#. 次のフィールドに入力します:
 
-   - **SMB Name** - ntnxlab\\administrator
-   - **NFS ID** - UID from previous step (0 if root)
-   - **User/Group** - User
+   - **SMB Name「SMB名」** - ntnxlab\\administrator
+   - **NFS ID** - 前のステップのUID（rootの場合は0）
+   - **User/Group「ユーザー/グループ-ユーザー」** - User
 
    .. figure:: images/57.png
 
-#. Click **Save** under the **Actions** column
+#. **Actions「アクション」** 列の下の **Save「保存」** をクリックします。
 
-#. Click **Next** until the **Summary** page and then click **Save**
+#. **Summary「概要」** ページが表示されるまで **Next [次へ]** をクリックし、**Save「保存」** をクリックします
 
-#. Click **Close**
+#. **Close「閉じる」** をクリックします
 
-#. Go back to the NFS-Client VM and execute the following:
+#. NFS-Client VMに戻り、以下を実行します:
 
      .. code-block:: bash
 

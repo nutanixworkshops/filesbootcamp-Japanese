@@ -1,50 +1,50 @@
 .. _file_analytics_deploy:
 
-----------------------
-File Analytics: Deploy
-----------------------
+-----------------------
+File Analytics: デプロイ
+-----------------------
 
-Overview
-++++++++
+概要
+++++
 
-In this exercise you will deploy the File Analytics VM and scan the existing shares to build out the dashboard.  You will also create anomaly alerts and view the audit details for your file server instance.
+この演習では、ファイル分析 VMをデプロイし、既存の共有をスキャンしてダッシュボードを構築します。また、異常アラートを作成し、ファイルサーバーインスタンスの監査の詳細を表示します
 
-Deploy File Analytics
-+++++++++++++++++++++
+ファイル分析をデプロイする
+++++++++++++++++++++++
 
-#. In **Prism** > **File Server** > click **Deploy File Analytics**
+#. **Prism** > File Server 「ファイルサーバー」** で、**Deploy File Analytics 「ファイル分析を展開する」** をクリックします
 
    .. figure:: images/31.png
 
-#. Select **Deploy**
+#. **Deploy「デプロイ」** を選択します
 
-   For the purpose of saving time, the File Analytics 2.0.0 package has already been uploaded to your cluster. Files binaries can be downloaded from the Nutanix Portal and uploaded manually.
+   時間を節約するために、ファイル分析 2.0.0パッケージはすでにクラスターにアップロードされています。ファイルバイナリは、Nutanixポータルからダウンロードして手動でアップロードできます
 
-#. After the upload completes select **Install**
+#. アップロードが完了したら、**Install インストール** を選択します
 
-#. Fill out the details
+#. 詳細を記入してください
 
-   - **Name** - Initials
-   - **Storage Container** – Will automatically select the container used by your file server instance
-   - **Network List** – Primary - Managed
+   - **Name「名前」** - Initials「-イニシャル」
+   - **Storage Container「ストレージコンテナー」** – –ファイルサーバーインスタンスが使用するコンテナーを自動的に選択します
+   - **Network List「ネットワークリスト–プライマリ」** – Primary - Managed
 
-#. Select **Show Advanced Settings**
+#. **Show Advanced Settings「詳細設定を表示」**　を選択します
 
-#. Ensure **DNS Resolver IP** is set to your Active Directory, ntnxlab.local, domain controller/DNS IP address and **ONLY** that address.
+#. **DNS Resolver IP「DNSリゾルバーIP」** がActive Directory、ntnxlab.local、ドメインコントローラー/ DNS IPアドレス
 
-#. Choose **Deploy**
+#. **Deploy**　を選択します
 
-#. You can monitor the deployment from the **Tasks** page.  The Analytics VM deployment should take ~5 minutes.
+#. タスクページから展開を監視できます。 Analytics VMの展開には、約5分かかります
 
-#. In **Prism** > **File Server** > click **File Analytics**
+#. In **Prism** > **File Server「ファイルサーバー」** > **File Analytics「ファイル分析」** をクリックします
 
    .. figure:: images/33.png
 
-#. On the Enable File Analytics page enter your domain administrator which is also your file server administrator.
+#. **Enable File Analytics「ファイル分析の有効化」** ページで、ドメイン管理者を入力します。これは、ファイルサーバー管理者でもあります
 
-   - **Username**: administrator
-   - **Password**: nutanix/4u
+   - **Username「ユーザー名」**: administrator
+   - **Password「パスワード」**: nutanix/4u
 
    .. figure:: images/34.png
 
-#. Select **Enable**
+#. **Enable「有効にする」**　を選択します
