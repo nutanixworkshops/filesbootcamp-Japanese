@@ -89,7 +89,7 @@ Define Anomaly Rules「異常ルールを定義する」
 
 #. 以下を入力
 
-   - **User name　「ユーザー名」**　: Poweruser01
+   - **User name　「ユーザー名」**　: devuser01
    - **Password　「パスワード」**　: nutanix/4u
 
 #. ディレクトリをマーケティング共有と **RO** ディレクトリに変更します
